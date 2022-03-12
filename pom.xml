@@ -7,16 +7,103 @@
     <groupId>org.beloved</groupId>
     <artifactId>Bookkeeping</artifactId>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.0.1</version>
     <modules>
         <module>bk-system</module>
         <module>bk-common</module>
         <module>bk-core</module>
+        <module>bk-admin</module>
     </modules>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
+
+        <bk.version>0.0.1</bk.version>
+        <spring.version>2.6.4</spring.version>
+        <mybatis.version>2.2.0</mybatis.version>
+        <druid.version>1.2.6</druid.version>
+        <fastjson.version>1.2.76</fastjson.version>
+        <mysql.version>8.0.25</mysql.version>
+        <lombok.version>1.18.20</lombok.version>
+
     </properties>
+
+    <!-- 依赖声明 -->
+    <dependencyManagement>
+        <dependencies>
+            <!-- SpringBoot的依赖配置-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- mybatis -->
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis.version}</version>
+            </dependency>
+
+            <!-- Mysql驱动包 -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
+            </dependency>
+
+            <!-- 阿里数据库连接池 -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+
+            <!-- 阿里JSON解析器 -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.beloved</groupId>
+                <artifactId>bk-admin</artifactId>
+                <version>${bk.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.beloved</groupId>
+                <artifactId>bk-common</artifactId>
+                <version>${bk.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.beloved</groupId>
+                <artifactId>bk-core</artifactId>
+                <version>${bk.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.beloved</groupId>
+                <artifactId>bk-system</artifactId>
+                <version>${bk.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+
+    </dependencies>
+
 
 </project>
