@@ -11,6 +11,8 @@ import java.io.Serializable;
  */
 public class ResultVo<T> implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     /**
      * 状态码
      */

@@ -8,6 +8,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="selectUserList" resultType="SysUser">
 		select * from sys_user
 	</select>
+
+	<select id="queryUserByUserName" resultType="SysUser">
+		select * from sys_user
+		where user_name = #{userName}
+	</select>
 	
 
 </mapper> 

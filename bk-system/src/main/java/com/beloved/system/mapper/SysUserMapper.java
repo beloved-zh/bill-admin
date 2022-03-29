@@ -19,4 +19,11 @@ public interface SysUserMapper {
      */
     List<SysUser> selectUserList();
 
+    /**
+     * 根据用户名查询用户
+     *
+     * @param userName 用户名
+     * @return 用户对象
+     */
+    SysUser queryUserByUserName(String userName);
 }

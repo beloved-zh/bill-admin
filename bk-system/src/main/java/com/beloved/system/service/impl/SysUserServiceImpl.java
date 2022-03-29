@@ -12,10 +12,20 @@ import java.util.List;
 public class SysUserServiceImpl implements SysUserService {
 
     @Autowired
-    private SysUserMapper sysUserMapper;
+    private SysUserMapper userMapper;
 
     @Override
     public List<SysUser> selectUserList() {
-        return sysUserMapper.selectUserList();
+        return userMapper.selectUserList();
+    }
+
+    /**
+     * 根据用户名查询用户
+     * @param userName 用户名
+     * @return 用户对象
+     */
+    @Override
+    public SysUser queryUserByUserName(String userName) {
+        return userMapper.queryUserByUserName(userName);
     }
 }
