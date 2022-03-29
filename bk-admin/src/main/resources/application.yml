@@ -1,7 +1,7 @@
 # 开发环境配置
 server:
   # 服务器的HTTP端口，默认为8080
-  port: 8081
+  port: 8080
   servlet:
     # 应用的访问路径
     context-path: /
@@ -39,7 +39,7 @@ logging:
 # MyBatis配置
 mybatis:
   # 指定包别名
-  type-aliases-package: com.beloved.**.pojo
+  type-aliases-package: com.beloved.**.entity
   # mapper映射文件
   mapper-locations: classpath*:mapper/**/*Mapper.xml
   # 全局配置文件

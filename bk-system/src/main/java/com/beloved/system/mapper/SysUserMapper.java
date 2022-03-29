@@ -1,8 +1,7 @@
 package com.beloved.system.mapper;
 
 
-import com.beloved.common.pojo.entity.SysUser;
-import org.springframework.stereotype.Repository;
+import com.beloved.common.entity.SysUser;
 
 import java.util.List;
 

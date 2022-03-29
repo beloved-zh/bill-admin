@@ -1,4 +1,4 @@
-package com.beloved.common.pojo.entity;
+package com.beloved.common.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,7 +8,7 @@ import java.util.Date;
 import java.io.Serializable;
 
 /**
- * 字典数据表(SysDictData)实体类
+ * 字典类型表(SysDictType)实体类
  *
  * @author beloved
  * @since 2022-03-12 14:17:44
@@ -16,42 +16,22 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SysDictData implements Serializable {
+public class SysDictType implements Serializable {
 
-    private static final long serialVersionUID = 250807545850805999L;
+    private static final long serialVersionUID = -28674719237777391L;
 
     /**
-     * 字典编码
+     * 字典主键
      */
-    private Long dictCode;
+    private Long dictId;
     /**
-     * 字典排序
+     * 字典名称
      */
-    private Integer dictSort;
-    /**
-     * 字典标签
-     */
-    private String dictLabel;
-    /**
-     * 字典键值
-     */
-    private String dictValue;
+    private String dictName;
     /**
      * 字典类型
      */
     private String dictType;
-    /**
-     * 样式属性（其他样式扩展）
-     */
-    private String cssClass;
-    /**
-     * 表格回显样式
-     */
-    private String listClass;
-    /**
-     * 是否默认（Y是 N否）
-     */
-    private String isDefault;
     /**
      * 状态（0正常 1停用）
      */

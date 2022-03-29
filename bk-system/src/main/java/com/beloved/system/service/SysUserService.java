@@ -1,6 +1,6 @@
 package com.beloved.system.service;
 
-import com.beloved.common.pojo.entity.SysUser;
+import com.beloved.common.entity.SysUser;
 
 import java.util.List;
 

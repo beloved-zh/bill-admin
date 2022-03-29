@@ -1,6 +1,6 @@
 package com.beloved.system.service.impl;
 
-import com.beloved.common.pojo.entity.SysUser;
+import com.beloved.common.entity.SysUser;
 import com.beloved.system.mapper.SysUserMapper;
 import com.beloved.system.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
