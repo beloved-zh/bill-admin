@@ -1,32 +1,29 @@
 package com.beloved.core.config;
 
-import com.alibaba.fastjson.JSONObject;
 import com.beloved.core.security.filter.LoginFilter;
+import com.beloved.core.security.handle.AuthenticationEntryPointImpl;
+import com.beloved.core.security.service.UserDetailsServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Bean
-    public UserDetailsService userDetailsService() {
-        InMemoryUserDetailsManager userDetailsManager = new InMemoryUserDetailsManager();
-        userDetailsManager.createUser(User.withUsername("admin").password("{noop}123").roles("admin").build());
-        return userDetailsManager;
-    }
+    @Autowired
+    private UserDetailsServiceImpl userDetailsService;
+
+    @Autowired
+    AuthenticationEntryPointImpl authenticationEntryPoint;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService());
+        auth.userDetailsService(userDetailsService);
     }
 
     /**
@@ -57,15 +54,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .anyRequest().authenticated() //所有请求必须认证
-                .and()
-                .formLogin()
-                .and()
-                .logout()
-                .logoutUrl("/logout")
-                .and()
-                .csrf().disable();
+
+        http
+                // 禁用 csrf
+                .csrf().disable()
+                // 自定义未认证异常处理
+                .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint).and()
+                .authorizeRequests()
+                .anyRequest().authenticated().and()
+                .formLogin();
 
         /*
          * addFilterAt：替换过滤器链中的某个 filter

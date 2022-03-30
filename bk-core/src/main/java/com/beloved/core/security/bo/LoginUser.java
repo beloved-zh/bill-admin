@@ -1,6 +1,9 @@
 package com.beloved.core.security.bo;
 
 import com.beloved.common.entity.SysUser;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -11,6 +14,9 @@ import java.util.Collection;
  *
  * @author beloved
  */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class LoginUser implements UserDetails {
 
     private static final long serialVersionUID = 1L;
@@ -53,7 +59,7 @@ public class LoginUser implements UserDetails {
      */
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     /**
@@ -62,7 +68,7 @@ public class LoginUser implements UserDetails {
      */
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     /**
@@ -71,7 +77,7 @@ public class LoginUser implements UserDetails {
      */
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     /**
