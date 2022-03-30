@@ -2,6 +2,8 @@ package com.beloved.core.config;
 
 import com.beloved.core.security.filter.LoginFilter;
 import com.beloved.core.security.handle.AuthenticationEntryPointImpl;
+import com.beloved.core.security.handle.AuthenticationFailureHandlerImpl;
+import com.beloved.core.security.handle.AuthenticationSuccessHandlerImpl;
 import com.beloved.core.security.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -19,7 +21,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private UserDetailsServiceImpl userDetailsService;
 
     @Autowired
-    AuthenticationEntryPointImpl authenticationEntryPoint;
+    private AuthenticationEntryPointImpl authenticationEntryPoint;
+
+    @Autowired
+    private AuthenticationSuccessHandlerImpl authenticationSuccessHandler;
+
+    @Autowired
+    private AuthenticationFailureHandlerImpl authenticationFailureHandler;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -48,6 +56,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         // 设置 AuthenticationManager
         loginFilter.setAuthenticationManager(authenticationManagerBean());
+
+        // 设置认证地址
+        loginFilter.setFilterProcessesUrl("/login");
+        loginFilter.setUsernameParameter("username");
+        loginFilter.setPasswordParameter("password");
+
+        // 设置认证成功处理器
+        loginFilter.setAuthenticationSuccessHandler(authenticationSuccessHandler);
+
+        // 设置认证失败处理器
+        loginFilter.setAuthenticationFailureHandler(authenticationFailureHandler);
 
         return loginFilter;
     }

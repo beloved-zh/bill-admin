@@ -1,6 +1,8 @@
 package com.beloved.core.security.filter;
 
 import com.alibaba.fastjson.JSONObject;
+import com.beloved.common.enums.ResultCode;
+import com.beloved.common.exception.ServiceException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -27,7 +29,8 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
         // 判断是否是 post 请求
         if (!request.getMethod().equals("POST")) {
-            throw new AuthenticationServiceException("Authentication method not supported: " + request.getMethod());
+            log.error("登录方式非法请求。请求方式：{}", request.getMethod());
+            return null;
         }
 
         // 判断是否是 json 格式请求参数

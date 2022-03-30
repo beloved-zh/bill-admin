@@ -56,6 +56,14 @@ public class ResultVo<T> implements Serializable {
         return new ResultVo(ResultCode.SUCCESS.getCode(), message, data);
     }
 
+    public static <T> ResultVo<T> success(ResultCode resultCode){
+        return new ResultVo(resultCode, null);
+    }
+
+    public static <T> ResultVo<T> success(ResultCode resultCode, T data){
+        return new ResultVo(resultCode, data);
+    }
+
     public static <T> ResultVo<T> error(){
         return new ResultVo(ResultCode.ERROR, null);
     }
@@ -72,11 +80,11 @@ public class ResultVo<T> implements Serializable {
         return new ResultVo(ResultCode.ERROR.getCode(), message, data);
     }
 
-    public static <T> ResultVo<T> msg(ResultCode resultCode){
+    public static <T> ResultVo<T> error(ResultCode resultCode){
         return new ResultVo(resultCode, null);
     }
 
-    public static <T> ResultVo<T> msg(ResultCode resultCode, T data){
+    public static <T> ResultVo<T> error(ResultCode resultCode, T data){
         return new ResultVo(resultCode, data);
     }
 

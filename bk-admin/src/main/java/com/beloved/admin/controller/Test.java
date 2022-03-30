@@ -1,6 +1,7 @@
 package com.beloved.admin.controller;
 
 import com.beloved.common.enums.ResultCode;
+import com.beloved.common.exception.ServiceException;
 import com.beloved.common.vo.ResultVo;
 import com.beloved.system.service.SysUserService;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +20,7 @@ public class Test {
     @GetMapping("/hello")
     public ResultVo test01() {
         log.debug("hello bk");
-        return ResultVo.msg(ResultCode.TEST, userService.selectUserList());
+        throw new ServiceException(ResultCode.METHOD_NOT_ALLOWED);
     }
 
 }
