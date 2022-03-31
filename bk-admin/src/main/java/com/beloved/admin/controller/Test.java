@@ -20,7 +20,7 @@ public class Test {
     @GetMapping("/hello")
     public ResultVo test01() {
         log.debug("hello bk");
-        throw new ServiceException(ResultCode.METHOD_NOT_ALLOWED);
+        return ResultVo.success();
     }
 
 }

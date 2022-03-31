@@ -1,6 +1,9 @@
 package com.beloved.core.security.handle;
 
 import com.alibaba.fastjson.JSONObject;
+import com.beloved.common.enums.ResultCode;
+import com.beloved.common.utils.ServletUtils;
+import com.beloved.common.vo.ResultVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
@@ -23,11 +26,7 @@ public class AuthenticationFailureHandlerImpl implements AuthenticationFailureHa
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
-        JSONObject result = new JSONObject();
-        result.put("msg", "登录失败：" + exception.getMessage());
-        response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
-        response.setContentType("application/json;charset=UTF-8");
-        response.getWriter().println(result);
+        ServletUtils.renderString(response, JSONObject.toJSONString(ResultVo.error(ResultCode.UNAUTHORIZED)));
     }
 
 }

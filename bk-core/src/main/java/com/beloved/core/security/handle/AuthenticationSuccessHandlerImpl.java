@@ -1,6 +1,9 @@
 package com.beloved.core.security.handle;
 
 import com.alibaba.fastjson.JSONObject;
+import com.beloved.common.enums.ResultCode;
+import com.beloved.common.utils.ServletUtils;
+import com.beloved.common.vo.ResultVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -23,12 +26,7 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        JSONObject result = new JSONObject();
-        result.put("msg", "登录成功");
-        result.put("用户信息", authentication.getPrincipal());
-        response.setStatus(HttpStatus.OK.value());
-        response.setContentType("application/json;charset=UTF-8");
-        response.getWriter().println(result);
+        ServletUtils.renderString(response, JSONObject.toJSONString(ResultVo.success(authentication.getPrincipal())));
     }
 
 }

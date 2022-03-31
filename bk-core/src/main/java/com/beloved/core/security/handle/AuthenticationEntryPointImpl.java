@@ -1,6 +1,9 @@
 package com.beloved.core.security.handle;
 
 import com.alibaba.fastjson.JSONObject;
+import com.beloved.common.enums.ResultCode;
+import com.beloved.common.utils.ServletUtils;
+import com.beloved.common.vo.ResultVo;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -22,13 +25,8 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint, S
 
     private static final long serialVersionUID = 1L;
 
-
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-        JSONObject result = new JSONObject();
-        result.put("msg", "尚未认证：" + authException.getMessage());
-        response.setStatus(HttpStatus.UNAUTHORIZED.value());
-        response.setContentType("application/json;charset=UTF-8");
-        response.getWriter().println(result);
+        ServletUtils.renderString(response, JSONObject.toJSONString(ResultVo.error(ResultCode.UNAUTHORIZED, "尚未认证")));
     }
 }
