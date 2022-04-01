@@ -1,6 +1,7 @@
 package com.beloved.core.config;
 
 import com.beloved.core.security.filter.LoginFilter;
+import com.beloved.core.security.filter.TokenFilter;
 import com.beloved.core.security.handle.AuthenticationEntryPointImpl;
 import com.beloved.core.security.handle.AuthenticationFailureHandlerImpl;
 import com.beloved.core.security.handle.AuthenticationSuccessHandlerImpl;
@@ -12,6 +13,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
@@ -28,6 +30,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private AuthenticationFailureHandlerImpl authenticationFailureHandler;
+
+    @Autowired
+    private TokenFilter tokenFilter;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -77,6 +82,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 // 禁用 csrf
                 .csrf().disable()
+                // 禁用 session
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 // 自定义未认证异常处理
                 .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint).and()
                 .authorizeRequests()
@@ -88,7 +95,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
          * addFilterBefore：放在过滤器链中某个 filter 之前
          * addFilterAfter：放在过滤器链中某个 filter 之后
          */
+        // 替换 UsernamePasswordAuthenticationFilter 用来处理表单提交
         http.addFilterAt(loginFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(tokenFilter, LoginFilter.class);
     }
 
 }

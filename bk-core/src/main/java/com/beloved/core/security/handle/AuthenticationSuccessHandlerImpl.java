@@ -4,7 +4,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.beloved.common.enums.ResultCode;
 import com.beloved.common.utils.ServletUtils;
 import com.beloved.common.vo.ResultVo;
+import com.beloved.core.security.bo.LoginUser;
+import com.beloved.core.security.service.TokenService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -24,9 +27,15 @@ import java.io.IOException;
 @Component
 public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHandler {
 
+    @Autowired
+    private TokenService tokenService;
+
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        ServletUtils.renderString(response, JSONObject.toJSONString(ResultVo.success(authentication.getPrincipal())));
+
+        String token = tokenService.createToken((LoginUser) authentication.getPrincipal());
+
+        ServletUtils.renderString(response, JSONObject.toJSONString(ResultVo.success(token)));
     }
 
 }

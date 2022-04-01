@@ -46,3 +46,12 @@ mybatis:
   config-location: classpath:mybatis/mybatis-config.xml
 
 
+# token配置
+token:
+  # 令牌自定义标识
+  header: Authorization
+  token_prefix: Bearer
+  # 令牌密钥
+  secret: abcdefghijklmnopqrstuvwxyz
+  # 令牌有效期（默认30分钟）
+  expire_time: 30
