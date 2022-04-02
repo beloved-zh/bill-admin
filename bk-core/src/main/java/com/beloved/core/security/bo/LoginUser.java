@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 /**
@@ -17,14 +18,28 @@ import java.util.Collection;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class LoginUser implements UserDetails {
+public class LoginUser implements UserDetails, Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    public LoginUser(SysUser user) {
+        this.user = user;
+    }
 
     /**
      * 用户信息
      */
     private SysUser user;
+
+    /**
+     * 登录时间
+     */
+    private Long loginTime;
+
+    /**
+     * 过期时间
+     */
+    private Long expireTime;
 
     /**
      * 权限信息

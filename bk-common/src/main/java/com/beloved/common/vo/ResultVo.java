@@ -1,114 +1,85 @@
 package com.beloved.common.vo;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.beloved.common.enums.ResultCode;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 统一返回视图
  *
  * @author beloved
  */
-public class ResultVo<T> implements Serializable {
+public class ResultVo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 状态码
-     */
-    private Integer code;
+    private static final String CODE = "code";
+    private static final String MESSAGE = "message";
+    private static final String DATA = "data";
 
-    /**
-     * 提示信息
-     */
-    private String message;
-
-    /**
-     * 返回数据
-     */
-    private T data;
-
-    public ResultVo(ResultCode resultCode, T data) {
-        this.code = resultCode.getCode();
-        this.message = resultCode.getMessage();
-        this.data = data;
+    public static JSONObject result(ResultCode code){
+        JSONObject result = new JSONObject();
+        result.put(CODE, code.getCode());
+        result.put(MESSAGE, code.getMessage());
+        return result;
     }
 
-    public ResultVo(Integer code, String message, T data) {
-        this.code = code;
-        this.message = message;
-        this.data = data;
+    public static JSONObject result(ResultCode code, Object data){
+        JSONObject result = new JSONObject();
+        result.put(CODE, code.getCode());
+        result.put(MESSAGE, code.getMessage());
+        result.put(DATA, data);
+        return result;
     }
 
-    public static <T> ResultVo<T> success(){
-        return new ResultVo(ResultCode.SUCCESS, null);
+
+    public static JSONObject success(){
+        return result(ResultCode.SUCCESS);
     }
 
-    public static <T> ResultVo<T> success(T data){
-        return new ResultVo(ResultCode.SUCCESS, data);
+    public static JSONObject success(Object data){
+        return result(ResultCode.SUCCESS, data);
     }
 
-    public static <T> ResultVo<T> success(String message){
-        return new ResultVo(ResultCode.SUCCESS.getCode(), message, null);
+    public static JSONObject success(String message){
+        JSONObject result = new JSONObject();
+        result.put(CODE, ResultCode.SUCCESS.getCode());
+        result.put(MESSAGE, message);
+        return result;
     }
 
-    public static <T> ResultVo<T> success(String message, T data){
-        return new ResultVo(ResultCode.SUCCESS.getCode(), message, data);
+    public static JSONObject success(String message, Object data){
+        JSONObject result = new JSONObject();
+        result.put(CODE, ResultCode.SUCCESS.getCode());
+        result.put(MESSAGE, message);
+        result.put(DATA, data);
+        return result;
     }
 
-    public static <T> ResultVo<T> success(ResultCode resultCode){
-        return new ResultVo(resultCode, null);
+    public static JSONObject error(){
+        return result(ResultCode.ERROR);
     }
 
-    public static <T> ResultVo<T> success(ResultCode resultCode, T data){
-        return new ResultVo(resultCode, data);
+    public static JSONObject error(Object data){
+        return result(ResultCode.ERROR, data);
     }
 
-    public static <T> ResultVo<T> error(){
-        return new ResultVo(ResultCode.ERROR, null);
+    public static JSONObject error(String message){
+        JSONObject result = new JSONObject();
+        result.put(CODE, ResultCode.ERROR.getCode());
+        result.put(MESSAGE, message);
+        return result;
     }
 
-    public static <T> ResultVo<T> error(T data){
-        return new ResultVo(ResultCode.ERROR, data);
+    public static JSONObject error(String message, Object data){
+        JSONObject result = new JSONObject();
+        result.put(CODE, ResultCode.ERROR.getCode());
+        result.put(MESSAGE, message);
+        result.put(DATA, data);
+        return result;
     }
 
-    public static <T> ResultVo<T> error(String message){
-        return new ResultVo(ResultCode.ERROR.getCode(), message, null);
-    }
-
-    public static <T> ResultVo<T> error(String message, T data){
-        return new ResultVo(ResultCode.ERROR.getCode(), message, data);
-    }
-
-    public static <T> ResultVo<T> error(ResultCode resultCode){
-        return new ResultVo(resultCode, null);
-    }
-
-    public static <T> ResultVo<T> error(ResultCode resultCode, T data){
-        return new ResultVo(resultCode, data);
-    }
-
-    public Integer getCode() {
-        return code;
-    }
-
-    public void setCode(Integer code) {
-        this.code = code;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public T getData() {
-        return data;
-    }
-
-    public void setData(T data) {
-        this.data = data;
-    }
 }

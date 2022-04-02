@@ -26,7 +26,7 @@ public class AuthenticationFailureHandlerImpl implements AuthenticationFailureHa
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
-        ServletUtils.renderString(response, JSONObject.toJSONString(ResultVo.error(ResultCode.UNAUTHORIZED)));
+        ServletUtils.renderString(response, ResultVo.result(ResultCode.UNAUTHORIZED).toString());
     }
 
 }

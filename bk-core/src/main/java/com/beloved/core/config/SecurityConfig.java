@@ -2,6 +2,7 @@ package com.beloved.core.config;
 
 import com.beloved.core.security.filter.LoginFilter;
 import com.beloved.core.security.filter.TokenFilter;
+import com.beloved.core.security.handle.AccessDeniedHandlerImpl;
 import com.beloved.core.security.handle.AuthenticationEntryPointImpl;
 import com.beloved.core.security.handle.AuthenticationFailureHandlerImpl;
 import com.beloved.core.security.handle.AuthenticationSuccessHandlerImpl;
@@ -12,6 +13,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -32,8 +34,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private AuthenticationFailureHandlerImpl authenticationFailureHandler;
 
     @Autowired
+    private AccessDeniedHandlerImpl accessDeniedHandler;
+
+    @Autowired
     private TokenFilter tokenFilter;
 
+    /**
+     * 自定义认证逻辑配置到SpringSecurity认证
+     * @param auth
+     * @throws Exception
+     */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService);
@@ -76,6 +86,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return loginFilter;
     }
 
+    /**
+     * 指定白名单
+     * @param web
+     * @throws Exception
+     */
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        super.configure(web);
+    }
+
+    /**
+     * SpringSecurity 核心配置
+     * @param http
+     * @throws Exception
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
@@ -84,11 +109,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 // 禁用 session
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                // 自定义未认证异常处理
-                .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint).and()
-                .authorizeRequests()
-                .anyRequest().authenticated().and()
+                // 请求都需要认证才能访问，除白名单
+                .authorizeRequests().anyRequest().authenticated().and()
                 .formLogin();
+
+        // 自定义未认证或 Token 过期 和 权限不足 处理器
+        http.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint).accessDeniedHandler(accessDeniedHandler);
 
         /*
          * addFilterAt：替换过滤器链中的某个 filter
@@ -97,6 +123,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
          */
         // 替换 UsernamePasswordAuthenticationFilter 用来处理表单提交
         http.addFilterAt(loginFilter(), UsernamePasswordAuthenticationFilter.class);
+
+        // 自定义 Token 过滤器
         http.addFilterBefore(tokenFilter, LoginFilter.class);
     }
 

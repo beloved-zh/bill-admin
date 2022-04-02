@@ -2,6 +2,7 @@ package com.beloved.core.security.filter;
 
 import com.beloved.common.entity.SysUser;
 import com.beloved.common.utils.ObjectUtils;
+import com.beloved.common.utils.SecurityUtils;
 import com.beloved.core.security.bo.LoginUser;
 import com.beloved.core.security.service.TokenService;
 import com.beloved.system.service.SysUserService;
@@ -19,6 +20,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
+ * Token 认证过滤器 接口访问前过滤
+ *
  * @author beloved
  */
 @Component
@@ -27,16 +30,12 @@ public class TokenFilter extends OncePerRequestFilter {
     @Autowired
     private TokenService tokenService;
 
-    @Autowired
-    private SysUserService userService;
-
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
-//        String loginUser = tokenService.getLoginUser(request);
-        String loginUser = null;
-        if (ObjectUtils.isNotEmpty(loginUser)) {
-            // TODO 从 redis 获取用户对象 目前先从库里获取
-            LoginUser user = new LoginUser(userService.queryUserByUserName(loginUser));
+        LoginUser user = tokenService.getLoginUser(request);
+        if (ObjectUtils.isNotEmpty(user) && ObjectUtils.isEmpty(SecurityUtils.getAuthentication())) {
+            tokenService.verifyToken(user);
+            // 刷新 Security 中的用户信息
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
             authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);

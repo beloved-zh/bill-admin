@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.io.Serializable;
 
 /**
- * 未认证处理
+ * 未认证及 Token 过期处理
  *
  * @author beloved
  */
@@ -27,6 +27,6 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint, S
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-        ServletUtils.renderString(response, JSONObject.toJSONString(ResultVo.error(ResultCode.UNAUTHORIZED, "尚未认证")));
+        ServletUtils.renderString(response, ResultVo.result(ResultCode.UNAUTHORIZED, "尚未登录请登录后操作").toString());
     }
 }

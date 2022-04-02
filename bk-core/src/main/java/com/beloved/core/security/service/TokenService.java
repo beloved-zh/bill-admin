@@ -1,16 +1,18 @@
 package com.beloved.core.security.service;
 
-import com.beloved.common.utils.JwtUtil;
+import com.beloved.common.constant.RedisConstants;
+import com.beloved.common.utils.JwtUtils;
+import com.beloved.common.utils.RedisUtils;
 import com.beloved.common.utils.StringUtils;
 import com.beloved.core.security.bo.LoginUser;
-import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author beloved
@@ -35,27 +37,64 @@ public class TokenService {
     @Value("${token.expire_time}")
     private int expireTime;
 
+    @Autowired
+    private JwtUtils jwtUtils;
+
+    @Autowired
+    private RedisUtils redisUtils;
+
+    // 毫秒
+    protected static final long MILLIS_SECOND = 1000;
+
+    // 分钟
+    protected static final long MILLIS_MINUTE = 60 * MILLIS_SECOND;
+
+    // 默认刷新间隔时间
+    protected static final long MILLIS_MINUTE_TEN = 30 * MILLIS_MINUTE;
+
+    /**
+     * 创建 Token 并进行缓存
+     * @param user 用户信息
+     * @return 令牌
+     */
     public String createToken(LoginUser user) {
-        // TODO 用户信息缓存 Redis
+        refreshToken(user);
+
         HashMap<String, Object> claims = new HashMap<>();
         claims.put("username", user.getUsername());
-        return JwtUtil.create(claims, null, secret);
+        return jwtUtils.create(claims, null, secret);
     }
 
 
-    public String getLoginUser(HttpServletRequest request) {
+    /**
+     * 解析 Token 获取用户信息
+     * @param request
+     * @return
+     */
+    public LoginUser getLoginUser(HttpServletRequest request) {
         // 获取请求携带的令牌
         String token = getToken(request);
-        if (StringUtils.isNotEmpty(token)) {
-            String username = (String) JwtUtil.getClaimsExcludeExpired(token, secret).get("username");
-
-            // TODO 从 redis 获取用户对象
-
-            return username;
+        if (StringUtils.isEmpty(token)) {
+            return null;
         }
-        return null;
+        String username = (String) jwtUtils.getClaims(token, secret).get("username");
+        LoginUser user = (LoginUser) redisUtils.get(getRedisKey(username));
+        return user;
     }
 
+    /**
+     * 验证令牌有效期，相差不足20分钟，自动刷新缓存
+     *
+     * @param user 用户信息
+     * @return 令牌
+     */
+    public void verifyToken(LoginUser user) {
+        long expireTime = user.getExpireTime();
+        long currentTime = System.currentTimeMillis();
+        if (expireTime - currentTime <= MILLIS_MINUTE_TEN) {
+            refreshToken(user);
+        }
+    }
 
     /**
      * 获取请求token
@@ -69,6 +108,35 @@ public class TokenService {
             token = StringUtils.replace(token, tokenPrefix, "");
         }
         return token;
+    }
+
+    /**
+     * 刷新令牌有效期
+     *
+     * @param user 用户信息
+     */
+    public void refreshToken(LoginUser user) {
+        user.setLoginTime(System.currentTimeMillis());
+        user.setExpireTime(user.getLoginTime() + expireTime * MILLIS_MINUTE);
+        redisUtils.set(getRedisKey(user.getUsername()), user, expireTime, TimeUnit.MINUTES);
+    }
+
+    /**
+     * 获取到期时间
+     *
+     * @return  到期时间
+     */
+    private Long getExpiration() {
+        return System.currentTimeMillis() + expireTime * MILLIS_MINUTE;
+    }
+
+    /**
+     * 获取缓存 Redis 的键值
+     * @param username
+     * @return
+     */
+    private String getRedisKey(String username) {
+        return RedisConstants.LOGIN_USER_KEY + username;
     }
 
 }

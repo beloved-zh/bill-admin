@@ -1,5 +1,7 @@
 package com.beloved.admin.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.beloved.common.enums.ResultCode;
 import com.beloved.common.exception.ServiceException;
 import com.beloved.common.vo.ResultVo;
@@ -17,10 +19,16 @@ public class Test {
     @Resource
     private SysUserService userService;
 
-    @GetMapping("/hello")
-    public ResultVo test01() {
-        log.debug("hello bk");
+    @GetMapping("/test01")
+    public JSONObject test01() {
+        log.debug("test01");
         return ResultVo.success();
+    }
+
+    @GetMapping("/test02")
+    public JSONObject test02() {
+        log.debug("test02");
+        return ResultVo.success(userService.selectUserList());
     }
 
 }
