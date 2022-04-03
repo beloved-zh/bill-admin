@@ -18,7 +18,7 @@ import java.util.Collection;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class LoginUser implements UserDetails, Serializable {
+public class LoginUser implements UserDetails {
 
     private static final long serialVersionUID = 1L;
 
