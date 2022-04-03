@@ -4,7 +4,9 @@ import com.beloved.common.constant.RedisConstants;
 import com.beloved.common.utils.JwtUtils;
 import com.beloved.common.utils.RedisUtils;
 import com.beloved.common.utils.StringUtils;
+import com.beloved.common.utils.UUIDUtils;
 import com.beloved.core.security.bo.LoginUser;
+import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -58,10 +60,14 @@ public class TokenService {
      * @return 令牌
      */
     public String createToken(LoginUser user) {
+        String loginId = UUIDUtils.getUUID();
+        user.setLonginId(loginId);
+
         refreshToken(user);
 
         HashMap<String, Object> claims = new HashMap<>();
-        claims.put("username", user.getUsername());
+        claims.put(RedisConstants.LOGIN_USER_KEY, loginId);
+
         return jwtUtils.create(claims, null, secret);
     }
 
@@ -77,9 +83,19 @@ public class TokenService {
         if (StringUtils.isEmpty(token)) {
             return null;
         }
-        String username = (String) jwtUtils.getClaims(token, secret).get("username");
-        LoginUser user = (LoginUser) redisUtils.get(getRedisKey(username));
-        return user;
+        try {
+            Claims claims = jwtUtils.getClaims(token, secret);
+            String loginId = (String) claims.get(RedisConstants.LOGIN_USER_KEY);
+
+            String redisKey = getRedisKey(loginId);
+
+            LoginUser user = (LoginUser) redisUtils.get(redisKey);
+
+            return user;
+        }catch (Exception e) {
+            log.error("Token解析异常：{}", e.getMessage(), e);
+        }
+        return null;
     }
 
     /**
@@ -118,7 +134,9 @@ public class TokenService {
     public void refreshToken(LoginUser user) {
         user.setLoginTime(System.currentTimeMillis());
         user.setExpireTime(user.getLoginTime() + expireTime * MILLIS_MINUTE);
-        redisUtils.set(getRedisKey(user.getUsername()), user, expireTime, TimeUnit.MINUTES);
+
+        String redisKey = getRedisKey(user.getLonginId());
+        redisUtils.set(redisKey, user, expireTime, TimeUnit.MINUTES);
     }
 
     /**
@@ -132,11 +150,11 @@ public class TokenService {
 
     /**
      * 获取缓存 Redis 的键值
-     * @param username
+     * @param loginId 登录唯一标识
      * @return
      */
-    private String getRedisKey(String username) {
-        return RedisConstants.LOGIN_USER_KEY + username;
+    private String getRedisKey(String loginId) {
+        return RedisConstants.LOGIN_USER_KEY + loginId;
     }
 
 }

@@ -5,6 +5,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -15,6 +16,7 @@ import java.util.Map;
  *
  * @author beloved
  */
+@Slf4j
 @Component
 public class JwtUtils {
 
@@ -51,15 +53,10 @@ public class JwtUtils {
      * @return 声名数据
      */
     public Claims getClaims(String token, String secret) {
-        try {
-            return Jwts.parser()
-                    .setSigningKey(secret)
-                    .parseClaimsJws(token)
-                    .getBody();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+        return Jwts.parser()
+                .setSigningKey(secret)
+                .parseClaimsJws(token)
+                .getBody();
     }
 
     /**
