@@ -32,6 +32,11 @@ public class LoginUser implements UserDetails {
     private SysUser user;
 
     /**
+     * 用户登录唯一标识
+     */
+    private String longinId;
+
+    /**
      * 登录时间
      */
     private Long loginTime;

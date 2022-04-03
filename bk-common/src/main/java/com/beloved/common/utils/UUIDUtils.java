@@ -8,6 +8,11 @@ import java.util.UUID;
  */
 public class UUIDUtils {
 
+    public static void main(String[] args) {
+        System.out.println(getUUID());
+        System.out.println(getUUID2());
+    }
+
     /**
      * 带-的UUID
      *
