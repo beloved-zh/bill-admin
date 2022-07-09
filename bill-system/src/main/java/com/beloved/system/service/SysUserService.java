@@ -1,10 +1,19 @@
 package com.beloved.system.service;
 
-import com.beloved.common.entity.SysUser;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.beloved.common.model.entity.SysUser;
 
 import java.util.List;
 
-public interface SysUserService {
+/**
+ * <p>
+ * 用户信息表 服务类
+ * </p>
+ *
+ * @author Beloved
+ * @since 2022-07-09
+ */
+public interface SysUserService extends IService<SysUser> {
 
     List<SysUser> selectUserList();
 

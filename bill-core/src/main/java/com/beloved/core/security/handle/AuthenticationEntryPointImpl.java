@@ -1,10 +1,9 @@
 package com.beloved.core.security.handle;
 
-import com.alibaba.fastjson.JSONObject;
-import com.beloved.common.enums.ResultCode;
+import com.alibaba.fastjson2.JSON;
+import com.beloved.common.enums.ErrorCode;
+import com.beloved.common.model.ResultVo;
 import com.beloved.common.utils.ServletUtils;
-import com.beloved.common.vo.ResultVo;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
@@ -27,6 +26,6 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint, S
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-        ServletUtils.renderString(response, ResultVo.result(ResultCode.UNAUTHORIZED, "尚未登录请登录后操作").toString());
+        ServletUtils.renderString(response, JSON.toJSONString(new ResultVo<>(ErrorCode.UNAUTHORIZED)));
     }
 }

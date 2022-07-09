@@ -1,20 +1,22 @@
 package com.beloved.system.mapper;
 
-
-import com.beloved.common.entity.SysUser;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.beloved.common.model.entity.SysUser;
 
 import java.util.List;
 
 /**
- * 用户表 数据层
- * 
- * @author ruoyi
+ * <p>
+ * 用户信息表 Mapper 接口
+ * </p>
+ *
+ * @author Beloved
+ * @since 2022-07-09
  */
-public interface SysUserMapper {
-
+public interface SysUserMapper extends BaseMapper<SysUser> {
     /**
      * 根据条件分页查询用户列表
-     * 
+     *
      * @return 用户信息集合信息
      */
     List<SysUser> selectUserList();

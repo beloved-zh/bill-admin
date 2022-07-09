@@ -1,11 +1,9 @@
 package com.beloved.core.security.filter;
 
-import com.beloved.common.entity.SysUser;
 import com.beloved.common.utils.ObjectUtils;
 import com.beloved.common.utils.SecurityUtils;
 import com.beloved.core.security.bo.LoginUser;
 import com.beloved.core.security.service.TokenService;
-import com.beloved.system.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;

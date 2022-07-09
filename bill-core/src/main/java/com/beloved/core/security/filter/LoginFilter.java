@@ -1,17 +1,13 @@
 package com.beloved.core.security.filter;
 
-import com.alibaba.fastjson.JSONObject;
-import com.beloved.common.enums.ResultCode;
-import com.beloved.common.exception.ServiceException;
+import com.alibaba.fastjson2.JSONObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
-import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -51,7 +47,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
                 return this.getAuthenticationManager().authenticate(authRequest);
             } catch (IOException e) {
-                e.printStackTrace();
+                log.error(e.getMessage(), e);
             }
         }
 

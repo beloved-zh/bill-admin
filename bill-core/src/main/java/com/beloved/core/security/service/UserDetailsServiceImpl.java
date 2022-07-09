@@ -1,6 +1,6 @@
 package com.beloved.core.security.service;
 
-import com.beloved.common.entity.SysUser;
+import com.beloved.common.model.entity.SysUser;
 import com.beloved.core.security.bo.LoginUser;
 import com.beloved.system.service.SysUserService;
 import lombok.extern.slf4j.Slf4j;

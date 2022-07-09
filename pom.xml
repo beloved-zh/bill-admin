@@ -21,9 +21,10 @@
 
         <bill.version>0.0.1</bill.version>
         <spring.version>2.6.4</spring.version>
-        <mybatis.version>2.2.0</mybatis.version>
+        <mybatis-plus.version>3.5.1</mybatis-plus.version>
+        <mybatis-plus-generator.version>3.5.1</mybatis-plus-generator.version>
         <druid.version>1.2.6</druid.version>
-        <fastjson.version>1.2.76</fastjson.version>
+        <fastjson2.version>2.0.8</fastjson2.version>
         <mysql.version>8.0.25</mysql.version>
         <lombok.version>1.18.20</lombok.version>
         <commons-lang3.version>3.12.0</commons-lang3.version>
@@ -42,12 +43,18 @@
                 <scope>import</scope>
             </dependency>
 
-            <!-- mybatis -->
+            <!-- mybatis-plus -->
             <dependency>
-                <groupId>org.mybatis.spring.boot</groupId>
-                <artifactId>mybatis-spring-boot-starter</artifactId>
-                <version>${mybatis.version}</version>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-generator</artifactId>
+                <version>${mybatis-plus-generator.version}</version>
+            </dependency>
+
 
             <!-- Mysql驱动包 -->
             <dependency>
@@ -65,9 +72,9 @@
 
             <!-- 阿里JSON解析器 -->
             <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>fastjson</artifactId>
-                <version>${fastjson.version}</version>
+                <groupId>com.alibaba.fastjson2</groupId>
+                <artifactId>fastjson2</artifactId>
+                <version>${fastjson2.version}</version>
             </dependency>
 
             <!--常用工具类 -->

@@ -35,9 +35,15 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
 
+        <!--代码生成-->
         <dependency>
-            <groupId>org.mybatis.spring.boot</groupId>
-            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generator</artifactId>
+        </dependency>
+        <!--模板引擎用于生成代码-->
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
         </dependency>
 
         <dependency>
