@@ -3,13 +3,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>Bookkeeping</artifactId>
+        <artifactId>bill-admin</artifactId>
         <groupId>org.beloved</groupId>
         <version>0.0.1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>bk-admin</artifactId>
+    <artifactId>bill-system</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -17,19 +17,10 @@
     </properties>
 
     <dependencies>
-        <!-- spring-boot-devtools -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <!-- 表示依赖不会传递 -->
-            <optional>true</optional>
-        </dependency>
-
         <dependency>
             <groupId>org.beloved</groupId>
-            <artifactId>bk-core</artifactId>
+            <artifactId>bill-common</artifactId>
         </dependency>
-
     </dependencies>
 
 </project>

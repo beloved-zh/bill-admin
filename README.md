@@ -1,14 +1,14 @@
-# Bookkeeping
+# bill-admin
 
 **项目结构**
 ```
-Bookkeeping
-├─bk-common     公共模块
+bill-admin
+├─bill-common     公共模块
 │ 
-├─bk-admin      后台服务
+├─bill-web      后台服务
 │    
-├─bk-core       核心模块
+├─bill-core       核心模块
 │ 
-├─bk-system     系统代码
+├─bill-system     系统代码
 │
 ```
