@@ -15,8 +15,7 @@ import java.io.IOException;
  * @author beloved
  */
 public class ServletUtils {
-
-
+    
     /**
      * 获取String参数
      * @param name

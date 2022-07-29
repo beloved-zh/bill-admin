@@ -28,4 +28,9 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
      * @return 用户对象
      */
     SysUser queryUserByUserName(String userName);
+
+    /**
+     * 
+     */
+    
 }

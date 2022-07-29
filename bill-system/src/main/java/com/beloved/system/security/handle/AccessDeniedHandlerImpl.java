@@ -1,4 +1,4 @@
-package com.beloved.core.security.handle;
+package com.beloved.system.security.handle;
 
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * 自定义权限不足处理器
+ * 认证用户访问无权限资源自定义异常处理器
  *
  * @author beloved
  */

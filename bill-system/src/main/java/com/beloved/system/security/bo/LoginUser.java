@@ -1,6 +1,7 @@
-package com.beloved.core.security.bo;
+package com.beloved.system.security.bo;
 
 import com.beloved.common.model.entity.SysUser;
+import com.beloved.common.utils.BooleanUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -105,6 +106,6 @@ public class LoginUser implements UserDetails {
      */
     @Override
     public boolean isEnabled() {
-        return true;
+        return !BooleanUtils.toBoolean(this.user.getStatus());
     }
 }

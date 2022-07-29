@@ -48,7 +48,7 @@
 
         <dependency>
             <groupId>org.beloved</groupId>
-            <artifactId>bill-system</artifactId>
+            <artifactId>bill-common</artifactId>
         </dependency>
     </dependencies>
 </project>

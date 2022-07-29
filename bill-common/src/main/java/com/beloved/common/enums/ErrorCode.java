@@ -16,7 +16,9 @@ public enum ErrorCode implements StatusCode {
     UNAUTHORIZED(401, "认证失败，无法访问系统资源"),
     METHOD_NOT_ALLOWED(405, "请求方法不合法"),
 
-    AUTH_FAIL(8001, "用户不存在/密码错误"),
+    AUTH_FAIL(8001, "用户名或者密码错误"),
+    CAPTCHA_EXPIRED(8002, "验证码已过期"),
+    CAPTCHA_FAIL(8003, "验证失败"),
     ;
     
     private Integer code;

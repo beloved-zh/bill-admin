@@ -1,6 +1,7 @@
 package com.beloved.core.handler;
 
 import com.beloved.common.enums.ErrorCode;
+import com.beloved.common.exception.MyAuthenticationException;
 import com.beloved.common.exception.ServiceException;
 import com.beloved.common.model.ResultVo;
 import lombok.extern.slf4j.Slf4j;
@@ -28,6 +29,15 @@ public class MyExceptionHandler {
         String requestURI = request.getRequestURI();
         log.error("请求地址'{}',不支持'{}'请求", requestURI, e.getMethod());
         return new ResultVo(ErrorCode.METHOD_NOT_ALLOWED);
+    }
+
+    /**
+     * 自定义认证异常
+     */
+    @ExceptionHandler(MyAuthenticationException.class)
+    public ResultVo serviceExceptionHandler(MyAuthenticationException e){
+        log.error("认证异常-->[{}] {}", e.getCode(), e.getMessage(), e);
+        return new ResultVo(e.getCode(), e.getMessage());
     }
     
     /**

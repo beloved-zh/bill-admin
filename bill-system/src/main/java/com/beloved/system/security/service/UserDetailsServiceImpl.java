@@ -1,7 +1,7 @@
-package com.beloved.core.security.service;
+package com.beloved.system.security.service;
 
 import com.beloved.common.model.entity.SysUser;
-import com.beloved.core.security.bo.LoginUser;
+import com.beloved.system.security.bo.LoginUser;
 import com.beloved.system.service.SysUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         SysUser user = userService.queryUserByUserName(username);
 
         if (ObjectUtils.isEmpty(user)) {
-            throw new UsernameNotFoundException("用户不存在！！！");
+            throw new UsernameNotFoundException("Username Not Found");
         }
 
         return new LoginUser(user);

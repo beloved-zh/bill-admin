@@ -1,19 +1,18 @@
-package com.beloved.core.config;
+package com.beloved.system.config;
 
-import com.beloved.core.security.filter.LoginFilter;
-import com.beloved.core.security.filter.TokenFilter;
-import com.beloved.core.security.handle.AccessDeniedHandlerImpl;
-import com.beloved.core.security.handle.AuthenticationEntryPointImpl;
-import com.beloved.core.security.handle.AuthenticationFailureHandlerImpl;
-import com.beloved.core.security.handle.AuthenticationSuccessHandlerImpl;
-import com.beloved.core.security.service.UserDetailsServiceImpl;
+import com.beloved.system.security.filter.LoginFilter;
+import com.beloved.system.security.filter.TokenFilter;
+import com.beloved.system.security.handle.AccessDeniedHandlerImpl;
+import com.beloved.system.security.handle.AuthenticationEntryPointImpl;
+import com.beloved.system.security.handle.AuthenticationFailureHandlerImpl;
+import com.beloved.system.security.handle.AuthenticationSuccessHandlerImpl;
+import com.beloved.system.security.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -40,6 +39,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private TokenFilter tokenFilter;
 
+    private static final String[] whiteList = {
+            "/auth/captcha"
+    };
+    
     /**
      * 自定义认证逻辑配置到SpringSecurity认证
      * @param auth
@@ -74,7 +77,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         loginFilter.setAuthenticationManager(authenticationManagerBean());
 
         // 设置认证地址
-        loginFilter.setFilterProcessesUrl("/login");
+        loginFilter.setFilterProcessesUrl("/auth/login");
         loginFilter.setUsernameParameter("username");
         loginFilter.setPasswordParameter("password");
 
@@ -83,19 +86,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         // 设置认证失败处理器
         loginFilter.setAuthenticationFailureHandler(authenticationFailureHandler);
-
+        
         return loginFilter;
-    }
-
-    /**
-     * 指定白名单
-     * @param web
-     * @throws Exception
-     */
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().mvcMatchers("/test01");
-        super.configure(web);
     }
 
     /**
@@ -110,12 +102,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 禁用 csrf
                 .csrf().disable()
                 // 禁用 session
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
                 // 请求都需要认证才能访问，除白名单
-                .authorizeRequests().anyRequest().authenticated().and()
+                .authorizeRequests()
+                .antMatchers(whiteList).permitAll()
+                .anyRequest().authenticated()
+                .and()
                 .formLogin();
 
-        // 自定义未认证或 Token 过期 和 权限不足 处理器
+        // 自定义匿名用户访问无权限资源异常处理器 、 认证用户访问无权限资源异常处理器
         http.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint).accessDeniedHandler(accessDeniedHandler);
 
         /*

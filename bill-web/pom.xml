@@ -27,7 +27,15 @@
 
         <dependency>
             <groupId>org.beloved</groupId>
+            <artifactId>bill-system</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.beloved</groupId>
             <artifactId>bill-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.beloved</groupId>
+            <artifactId>bill-common</artifactId>
         </dependency>
 
         <dependency>

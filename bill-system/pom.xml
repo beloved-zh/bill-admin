@@ -19,6 +19,10 @@
     <dependencies>
         <dependency>
             <groupId>org.beloved</groupId>
+            <artifactId>bill-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.beloved</groupId>
             <artifactId>bill-common</artifactId>
         </dependency>
     </dependencies>

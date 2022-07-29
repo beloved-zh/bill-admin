@@ -1,15 +1,16 @@
-package com.beloved.core.security.service;
+package com.beloved.system.security.service;
 
 import com.beloved.common.constant.RedisConstants;
+import com.beloved.common.constant.TimeConstants;
 import com.beloved.common.utils.JwtUtils;
 import com.beloved.common.utils.RedisUtils;
 import com.beloved.common.utils.StringUtils;
 import com.beloved.common.utils.UUIDUtils;
-import com.beloved.core.security.bo.LoginUser;
+import com.beloved.system.security.bo.LoginUser;
+import com.beloved.system.security.bo.TokenConfig;
 import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,21 +24,8 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class TokenService {
 
-    // 令牌自定义标识
-    @Value("${token.header}")
-    private String header;
-
-    // token 前缀
-    @Value("${token.token_prefix}")
-    private String tokenPrefix;
-
-    // 令牌秘钥
-    @Value("${token.secret}")
-    private String secret;
-
-    // 令牌有效期（默认30分钟）
-    @Value("${token.expire_time}")
-    private int expireTime;
+    @Autowired
+    private TokenConfig tonkeConfig;
 
     @Autowired
     private JwtUtils jwtUtils;
@@ -45,14 +33,7 @@ public class TokenService {
     @Autowired
     private RedisUtils redisUtils;
 
-    // 毫秒
-    protected static final long MILLIS_SECOND = 1000;
-
-    // 分钟
-    protected static final long MILLIS_MINUTE = 60 * MILLIS_SECOND;
-
-    // 默认刷新间隔时间
-    protected static final long MILLIS_MINUTE_TEN = 30 * MILLIS_MINUTE;
+    
 
     /**
      * 创建 Token 并进行缓存
@@ -68,7 +49,7 @@ public class TokenService {
         HashMap<String, Object> claims = new HashMap<>();
         claims.put(RedisConstants.LOGIN_USER_KEY, loginId);
 
-        return jwtUtils.create(claims, null, secret);
+        return jwtUtils.create(claims, null, tonkeConfig.getSecret());
     }
 
 
@@ -84,7 +65,7 @@ public class TokenService {
             return null;
         }
         try {
-            Claims claims = jwtUtils.getClaims(token, secret);
+            Claims claims = jwtUtils.getClaims(token, tonkeConfig.getSecret());
             String loginId = (String) claims.get(RedisConstants.LOGIN_USER_KEY);
 
             String redisKey = getRedisKey(loginId);
@@ -107,7 +88,7 @@ public class TokenService {
     public void verifyToken(LoginUser user) {
         long expireTime = user.getExpireTime();
         long currentTime = System.currentTimeMillis();
-        if (expireTime - currentTime <= MILLIS_MINUTE_TEN) {
+        if (expireTime - currentTime <= TimeConstants.MILLIS_MINUTE_TEN) {
             refreshToken(user);
         }
     }
@@ -119,9 +100,9 @@ public class TokenService {
      * @return
      */
     private String getToken(HttpServletRequest request) {
-        String token = request.getHeader(header);
-        if (StringUtils.isNotEmpty(token) && StringUtils.startsWith(token, tokenPrefix)) {
-            token = StringUtils.replace(token, tokenPrefix, "");
+        String token = request.getHeader(tonkeConfig.getHeader());
+        if (StringUtils.isNotEmpty(token) && StringUtils.startsWith(token, tonkeConfig.getTokenPrefix())) {
+            token = StringUtils.replace(token, tonkeConfig.getTokenPrefix(), "");
         }
         return token;
     }
@@ -133,10 +114,10 @@ public class TokenService {
      */
     public void refreshToken(LoginUser user) {
         user.setLoginTime(System.currentTimeMillis());
-        user.setExpireTime(user.getLoginTime() + expireTime * MILLIS_MINUTE);
+        user.setExpireTime(user.getLoginTime() + tonkeConfig.getExpireTime() * TimeConstants.MILLIS_MINUTE);
 
         String redisKey = getRedisKey(user.getLonginId());
-        redisUtils.set(redisKey, user, expireTime, TimeUnit.MINUTES);
+        redisUtils.set(redisKey, user, tonkeConfig.getExpireTime(), TimeUnit.MINUTES);
     }
 
     /**
@@ -145,7 +126,7 @@ public class TokenService {
      * @return  到期时间
      */
     private Long getExpiration() {
-        return System.currentTimeMillis() + expireTime * MILLIS_MINUTE;
+        return System.currentTimeMillis() + tonkeConfig.getExpireTime() * TimeConstants.MILLIS_MINUTE;
     }
 
     /**
