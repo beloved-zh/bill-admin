@@ -1,7 +1,6 @@
 package com.beloved.system.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.beloved.common.model.entity.SysUserRole;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
@@ -11,6 +10,7 @@ import com.beloved.common.model.entity.SysUserRole;
  * @author Beloved
  * @since 2022-07-09
  */
-public interface SysUserRoleMapper extends BaseMapper<SysUserRole> {
+@Mapper
+public interface SysUserRoleMapper {
 
 }

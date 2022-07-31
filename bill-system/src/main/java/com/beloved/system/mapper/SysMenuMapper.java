@@ -1,7 +1,6 @@
 package com.beloved.system.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.beloved.common.model.entity.SysMenu;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
@@ -11,6 +10,7 @@ import com.beloved.common.model.entity.SysMenu;
  * @author Beloved
  * @since 2022-07-09
  */
-public interface SysMenuMapper extends BaseMapper<SysMenu> {
+@Mapper
+public interface SysMenuMapper {
 
 }

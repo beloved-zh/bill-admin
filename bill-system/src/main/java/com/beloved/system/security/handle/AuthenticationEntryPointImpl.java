@@ -28,6 +28,6 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint, S
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException, ServletException {
         log.error(e.getMessage());
-        ServletUtils.renderString(response, JSON.toJSONString(new ResultVo<>(ErrorCode.UNAUTHORIZED)));
+        ServletUtils.writeJson(response, JSON.toJSONString(new ResultVo<>(ErrorCode.UNAUTHORIZED)));
     }
 }

@@ -2,13 +2,52 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.beloved.system.mapper.SysUserMapper">
 	
-    <select id="selectUserList" resultType="SysUser">
-		select * from sys_user
-	</select>
-
-	<select id="queryUserByUserName" resultType="SysUser">
-		select * from sys_user
-		where user_name = #{userName}
+	<resultMap id="sysUserRoles" type="sysUser">
+		<id property="userId" column="user_id" />
+		<result property="userName" column="user_name" />
+		<result property="nickName" column="nick_name" />
+		<result property="email" column="email" />
+		<result property="phoneNumber" column="phone_number" />
+		<result property="sex" column="sex" />
+		<result property="avatar" column="avatar" />
+		<result property="password" column="password" />
+		<result property="status" column="status" />
+		<result property="loginIp" column="login_ip" />
+		<result property="loginDate" column="login_date" />
+		<result property="remark" column="remark" />
+		<result property="createBy" column="create_by" />
+		<result property="createTime" column="create_time" />
+		<result property="updateBy" column="update_by" />
+		<result property="updateTime" column="update_time" />
+		<collection property="roles" ofType="sysRole">
+			<id property="roleId" column="role_id" />
+			<result property="roleKey" column="role_key" />
+			<result property="roleName" column="role_name" />
+		</collection>
+	</resultMap>
+	
+	<select id="queryUserByUserName" resultMap="sysUserRoles">
+		select u.user_id, u.user_name, u.nick_name, u.email, u.phone_number, u.sex, u.avatar, u.password, u.status, u.login_ip, u.login_date, u.remark, u.create_by, u.create_time, u.update_by, u.update_time,
+			   r.role_id, r.role_key, r.role_name
+		from sys_user u
+		left join sys_user_role ur
+		on u.user_id = ur.user_id
+		left join sys_role r
+		on ur.role_id = r.role_id
+		where u.status = '0' 
+		and r.status = '0'
+		and u.user_name = #{userName};
 	</select>
 	
+	<update id="updateUser">
+		update sys_user
+		<set>
+			<if test="loginIp != null and loginIp != ''">login_ip = #{loginIp},</if>
+			<if test="loginDate != null">login_date = #{loginDate},</if>
+			<if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+			<if test="updateTime != null">update_time = #{updateTime},</if>
+			<if test="remark != null">remark = #{remark}</if>
+		</set>
+		where user_id = #{userId}
+	</update>
 </mapper> 

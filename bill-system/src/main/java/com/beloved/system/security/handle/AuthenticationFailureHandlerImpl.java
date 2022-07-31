@@ -29,9 +29,9 @@ public class AuthenticationFailureHandlerImpl implements AuthenticationFailureHa
         log.error("认证失败：{}", e.getMessage(), e);
         if (e instanceof MyAuthenticationException) {
             MyAuthenticationException err = (MyAuthenticationException) e;
-            ServletUtils.renderString(response, JSON.toJSONString(new ResultVo<>(err.getCode(), e.getMessage())));
+            ServletUtils.writeJson(response, JSON.toJSONString(new ResultVo<>(err.getCode(), e.getMessage())));
         } else {
-            ServletUtils.renderString(response, JSON.toJSONString(new ResultVo<>(ErrorCode.AUTH_FAIL)));
+            ServletUtils.writeJson(response, JSON.toJSONString(new ResultVo<>(ErrorCode.AUTH_FAIL)));
         }
     }
 

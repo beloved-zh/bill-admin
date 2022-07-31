@@ -1,8 +1,5 @@
 package com.beloved.system.service.impl;
 
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.beloved.common.model.entity.SysRole;
-import com.beloved.system.mapper.SysRoleMapper;
 import com.beloved.system.service.SysRoleService;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +12,6 @@ import org.springframework.stereotype.Service;
  * @since 2022-07-09
  */
 @Service
-public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> implements SysRoleService {
+public class SysRoleServiceImpl implements SysRoleService {
 
 }

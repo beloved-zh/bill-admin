@@ -36,19 +36,14 @@ logging:
   level:
     com.beloved: debug
 
-# MyBatis-Plus配置  https://baomidou.com/pages/56bac0/
-mybatis-plus:
+# MyBatis
+mybatis:
   # MyBatis 配置文件位置
   config-location: classpath:mybatis/mybatis-config.xml
   # mapper映射文件
   mapper-locations: classpath*:mapper/**/*Mapper.xml
   # 指定包别名
   type-aliases-package: com.beloved.**.entity
-  global-config:
-    db-config:
-      logic-delete-field: del_flag
-      logic-delete-value: 1
-      logic-not-delete-value: 0
 
 # token配置
 token:

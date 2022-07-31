@@ -18,11 +18,9 @@
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
-
         <bill.version>0.0.1</bill.version>
         <spring.version>2.6.4</spring.version>
-        <mybatis-plus.version>3.5.1</mybatis-plus.version>
-        <mybatis-plus-generator.version>3.5.1</mybatis-plus-generator.version>
+        <mybatis-spring-boot.version>2.2.2</mybatis-spring-boot.version>
         <druid.version>1.2.6</druid.version>
         <fastjson2.version>2.0.8</fastjson2.version>
         <mysql.version>8.0.25</mysql.version>
@@ -44,19 +42,13 @@
                 <scope>import</scope>
             </dependency>
 
-            <!-- mybatis-plus -->
+            <!-- mybatis -->
             <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>${mybatis-plus.version}</version>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis-spring-boot.version}</version>
             </dependency>
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-generator</artifactId>
-                <version>${mybatis-plus-generator.version}</version>
-            </dependency>
-
-
+            
             <!-- Mysql驱动包 -->
             <dependency>
                 <groupId>mysql</groupId>
@@ -86,14 +78,22 @@
             </dependency>
 
             <!-- hutool -->
+            <!-- 核心，包括Bean操作、日期、各种Util等 -->
             <dependency>
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-core</artifactId>
                 <version>${hutool.version}</version>
             </dependency>
+            <!-- 图片验证码实现 -->
             <dependency>
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-captcha</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
+            <!-- 扩展模块，对第三方封装（模板引擎、邮件、Servlet、二维码、Emoji、FTP、分词等） -->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-extra</artifactId>
                 <version>${hutool.version}</version>
             </dependency>
             

@@ -1,10 +1,7 @@
 package com.beloved.common.model.entity;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.beloved.common.model.BaseEntity;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * <p>
@@ -14,9 +11,7 @@ import lombok.Setter;
  * @author Beloved
  * @since 2022-07-09
  */
-@Getter
-@Setter
-@TableName("sys_user_role")
+@Data
 public class SysUserRole extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
@@ -24,13 +19,11 @@ public class SysUserRole extends BaseEntity {
     /**
      * 用户ID
      */
-    @TableField("userId")
     private Long userId;
 
     /**
      * 角色ID
      */
-    @TableField("roleId")
     private Long roleId;
 
 

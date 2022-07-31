@@ -1,5 +1,7 @@
 package com.beloved.common.utils;
 
+import cn.hutool.extra.servlet.ServletUtil;
+import org.springframework.http.MediaType;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -7,14 +9,22 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 
 /**
  * Servlet工具类
  *
  * @author beloved
  */
-public class ServletUtils {
+public class ServletUtils extends ServletUtil {
+
+    /**
+     * 返回JSON数据给客户端
+     * @param response
+     * @param text
+     */
+    public static void writeJson(HttpServletResponse response, String text) {
+        write(response, text, MediaType.APPLICATION_JSON_VALUE);
+    }
     
     /**
      * 获取String参数
@@ -34,23 +44,7 @@ public class ServletUtils {
         return getRequest().getHeader(name);
     }
 
-    /**
-     * 将字符串渲染到客户端
-     *
-     * @param response 渲染对象
-     * @param string 待渲染的字符串
-     */
-    public static void renderString(HttpServletResponse response, String string) {
-        try {
-            response.setStatus(200);
-            response.setContentType("application/json");
-            response.setCharacterEncoding("utf-8");
-            response.getWriter().print(string);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
+    
     /**
      * 获取request
      * @return
