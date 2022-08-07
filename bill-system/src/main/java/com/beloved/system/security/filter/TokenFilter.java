@@ -1,7 +1,7 @@
 package com.beloved.system.security.filter;
 
 import com.beloved.common.utils.ObjectUtils;
-import com.beloved.common.utils.SecurityUtils;
+import com.beloved.system.utils.SecurityUtils;
 import com.beloved.system.security.bo.LoginUser;
 import com.beloved.system.security.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;

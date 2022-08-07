@@ -2,7 +2,7 @@ package com.beloved.system.security.handle;
 
 import com.alibaba.fastjson2.JSON;
 import com.beloved.common.model.ResultVo;
-import com.beloved.common.model.dto.TokenDto;
+import com.beloved.common.model.vo.auth.TokenVo;
 import com.beloved.common.model.entity.SysUser;
 import com.beloved.common.utils.ServletUtils;
 import com.beloved.system.security.bo.LoginUser;
@@ -51,11 +51,11 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
         user.setLoginDate(new Date());
         userService.updateUser(user);
         
-        TokenDto tokenDto = new TokenDto();
+        TokenVo tokenDto = new TokenVo();
         tokenDto.setHeader(tokenConfig.getHeader());
         tokenDto.setTokenPrefix(tokenConfig.getTokenPrefix());
         tokenDto.setToken(token);
-        ServletUtils.writeJson(response, JSON.toJSONString(new ResultVo<TokenDto>(tokenDto)));
+        ServletUtils.writeJson(response, JSON.toJSONString(new ResultVo<TokenVo>(tokenDto)));
     }
 
 }

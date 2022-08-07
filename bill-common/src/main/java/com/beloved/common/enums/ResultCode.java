@@ -10,16 +10,8 @@ import lombok.Getter;
  */
 @Getter
 public enum ResultCode implements StatusCode {
-    SUCCESS(200, "操作成功"),
-
-    // =============== 4xx ===============
-    BAD_REQUEST(400, "请求错误"),
-
-    // =============== 5xx ===============
-    ERROR(500, "服务器内部错误"),
-
-
-    TEST(600, "测试");
+    SUCCESS(2000, "操作成功"),
+    LOGOUT_SUCCESS(2001, "注销成功");
 
     private Integer code;
     private String message;

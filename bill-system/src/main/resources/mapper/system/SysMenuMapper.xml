@@ -2,4 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.beloved.system.mapper.SysMenuMapper">
 
+    <select id="queryMenuList" resultType="sysMenu">
+        select * from sys_menu
+        <where>
+            <if test="status != null and status != ''">
+                and status = #{status}
+            </if>
+        </where>
+        order by parent_id, order_num
+    </select>
 </mapper>

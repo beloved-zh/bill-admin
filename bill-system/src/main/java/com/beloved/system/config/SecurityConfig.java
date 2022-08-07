@@ -2,10 +2,7 @@ package com.beloved.system.config;
 
 import com.beloved.system.security.filter.LoginFilter;
 import com.beloved.system.security.filter.TokenFilter;
-import com.beloved.system.security.handle.AccessDeniedHandlerImpl;
-import com.beloved.system.security.handle.AuthenticationEntryPointImpl;
-import com.beloved.system.security.handle.AuthenticationFailureHandlerImpl;
-import com.beloved.system.security.handle.AuthenticationSuccessHandlerImpl;
+import com.beloved.system.security.handle.*;
 import com.beloved.system.security.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -20,7 +17,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
+    
+    @Autowired
+    private TokenFilter tokenFilter;
+    
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
@@ -35,9 +35,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private AccessDeniedHandlerImpl accessDeniedHandler;
-
-    @Autowired
-    private TokenFilter tokenFilter;
+    
+   @Autowired
+   private LogoutSuccessHandlerImpl logoutSuccessHandler;
 
     private static final String[] whiteList = {
             "/auth/captcha"
@@ -110,6 +110,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .formLogin();
+        
+        // 注销登录
+        http
+                .logout()
+                .logoutUrl("/auth/logout")
+                // session 会话失效  默认：true
+                .invalidateHttpSession(true)
+                // 清除认证标记  默认：true
+                .clearAuthentication(true)
+                // 自定义注销成功处理器
+                .logoutSuccessHandler(logoutSuccessHandler);
 
         // 自定义匿名用户访问无权限资源异常处理器 、 认证用户访问无权限资源异常处理器
         http.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint).accessDeniedHandler(accessDeniedHandler);

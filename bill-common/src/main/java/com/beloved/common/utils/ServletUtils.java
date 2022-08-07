@@ -1,7 +1,6 @@
 package com.beloved.common.utils;
 
 import cn.hutool.extra.servlet.ServletUtil;
-import org.springframework.http.MediaType;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -17,13 +16,17 @@ import javax.servlet.http.HttpSession;
  */
 public class ServletUtils extends ServletUtil {
 
+    public static final String APPLICATION_JSON = "application/json";
+    
+    public static final String APPLICATION_JSON_UTF8 = "application/json;charset=UTF-8";
+    
     /**
      * 返回JSON数据给客户端
      * @param response
      * @param text
      */
     public static void writeJson(HttpServletResponse response, String text) {
-        write(response, text, MediaType.APPLICATION_JSON_VALUE);
+        write(response, text, APPLICATION_JSON_UTF8);
     }
     
     /**

@@ -1,6 +1,9 @@
 package com.beloved.system.mapper;
 
+import com.beloved.common.model.entity.SysMenu;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,6 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface SysMenuMapper {
 
+    List<SysMenu> queryMenuList(SysMenu menu);
+    
 }

@@ -1,4 +1,4 @@
-package com.beloved.common.model.dto;
+package com.beloved.common.model.vo.auth;
 
 import lombok.Data;
 

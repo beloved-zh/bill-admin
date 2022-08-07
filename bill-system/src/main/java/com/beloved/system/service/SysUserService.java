@@ -1,7 +1,6 @@
 package com.beloved.system.service;
 
 import com.beloved.common.model.entity.SysUser;
-
 /**
  * <p>
  * 用户信息表 服务类

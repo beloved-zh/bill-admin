@@ -2,10 +2,7 @@ package com.beloved.system.security.service;
 
 import com.beloved.common.constant.RedisConstants;
 import com.beloved.common.constant.TimeConstants;
-import com.beloved.common.utils.JwtUtils;
-import com.beloved.common.utils.RedisUtils;
-import com.beloved.common.utils.StringUtils;
-import com.beloved.common.utils.UUIDUtils;
+import com.beloved.common.utils.*;
 import com.beloved.system.security.bo.LoginUser;
 import com.beloved.system.security.bo.TokenConfig;
 import io.jsonwebtoken.Claims;
@@ -14,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
@@ -32,6 +30,14 @@ public class TokenService {
 
     @Autowired
     private RedisUtils redisUtils;
+    
+    public void clearLoginUser(String uuid) {
+        if (StringUtils.isEmpty(uuid)) {
+            return;
+        }
+        String key = getRedisKey(uuid);
+        redisUtils.del(key);
+    }
     
     /**
      * 创建 Token 并进行缓存
@@ -98,7 +104,7 @@ public class TokenService {
      * @return
      */
     private String getToken(HttpServletRequest request) {
-        String token = request.getHeader(tonkeConfig.getHeader());
+        String token = ServletUtils.getHeader(request, tonkeConfig.getHeader(), StandardCharsets.UTF_8);
         if (StringUtils.isNotEmpty(token) && StringUtils.startsWith(token, tonkeConfig.getTokenPrefix())) {
             token = StringUtils.replace(token, tonkeConfig.getTokenPrefix(), "");
         }
