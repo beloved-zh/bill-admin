@@ -31,11 +31,6 @@ spring:
       # 热部署开关
       enabled: true
 
-# 日志配置
-logging:
-  level:
-    com.beloved: debug
-
 # MyBatis
 mybatis:
   # MyBatis 配置文件位置
@@ -49,6 +44,8 @@ mybatis:
 token:
   # 令牌密钥
   secret: abcdefghijklmnopqrstuvwxyz
+  header: TOKEN
+  token-prefix: 
 
   
 bill:

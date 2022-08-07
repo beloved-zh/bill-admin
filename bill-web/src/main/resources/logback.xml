@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+    
+    <!-- 日志级别 TRACE < DEBUG < INFO < WARN < ERROR -->
+    
+    <!--
+        日志输出格式：
+            %d{yyyy-MM-dd HH:mm:ss.SSS}     日期
+            %-5level                        日志级别，从左显示5个字符宽度
+            %thread / %t                    线程名
+            %M                              方法
+            %L                              行号
+            
+            %logger{50} / %c                表示 全限定类名 名字最长 50 个字符，否则按照句点分割
+            %m / %msg                       信息
+            %n                              换行
+        支持的颜色字符编码：
+            %black 黑色
+            %red 红色
+            %green 绿色
+            %yellow 黄色
+            %blue 蓝色
+            %magenta 洋红色
+            %cyan 青色
+            %white 白色
+            %gray 灰色
+        以下为对应加粗的颜色代码
+            %boldRed
+            %boldGreen
+            %boldYellow
+            %boldBlue
+            %boldMagenta
+            %boldCyan
+            %boldWhite
+            %highlight 高亮色
+            
+        ${PID}：线程号，springboot 注入的
+    -->
+    <property name="CONSOLE_LOG_PATTERN" value="%highlight(%d{yyyy-MM-dd HH:mm:ss.SSS}) %cyan([%thread]) %magenta(${PID}) %yellow(%-5level) %logger{50}#%M.%L - %m%n" />
+    <property name="FILE_LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] ${PID} %-5level %logger{50}#%M.%L - %m%n" />
+
+    <!-- 日志文件路径 -->
+    <property name="LOG_DIR" value="D://logs/bill" />
+
+    <!-- 编码格式 -->
+    <property name="ENCODING" value="UTF-8" />
+
+    <!-- 控制台 -->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- 日志消息格式 -->
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>${ENCODING}</charset>
+        </encoder>
+    </appender>
+
+    <!-- info 日志 -->
+    <appender name="info_log" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 日志文件保存路径和名称 -->
+        <file>${LOG_DIR}/info/info.log</file>
+        <!-- 是否追加到文件末尾,默认为true -->
+        <append>true</append>
+        <!-- 日志级别过滤器，除了 error 级别都记录在此文件 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <!-- 拦截级别 -->
+            <level>ERROR</level>
+            <!-- 如果命中 ERROR 就禁止这条日志 -->
+            <onMatch>DENY</onMatch>
+            <!-- 如果没有命中就使用这条规则 -->
+            <onMismatch>ACCEPT</onMismatch>
+        </filter>
+        <!-- 指定拆分规则 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 按照时间和压缩格式声明拆分的文件名 -->
+            <fileNamePattern>${LOG_DIR}/info/%d{yyyy-MM-dd}/info.%i.log.gz</fileNamePattern>
+            <!-- 日志文件的保存期限
+                 单位是根据 fileNamePattern 中的翻转策略自动推算出来的
+                 例如上面选用了 yyyy-MM-dd, 则单位为天
+                 如果上面选用了 yyyy-MM, 则单位为月
+                 上面的单位默认为 yyyy-MM-dd
+            -->
+            <maxHistory>30</maxHistory>
+            <!-- 日志文件总占用内存大小 -->
+            <totalSizeCap>20GB</totalSizeCap>
+            <!-- 拆分单位，单个日志文件大小 -->
+            <maxFileSize>10MB</maxFileSize>
+        </rollingPolicy>
+        <!-- 日志消息格式 -->
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+            <charset>${ENCODING}</charset>
+        </encoder>
+    </appender>
+
+    <!-- error 日志 -->
+    <appender name="error_log" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 日志文件保存路径和名称 -->
+        <file>${LOG_DIR}/error/error.log</file>
+        <!-- 是否追加到文件末尾,默认为true -->
+        <append>true</append>
+        <!-- 日志级别过滤器，除了 error 级别都记录在此文件 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <!-- 拦截级别 -->
+            <level>ERROR</level>
+            <!-- 如果命中 ERROR 就使用这条规则 -->
+            <onMatch>ACCEPT</onMatch>
+            <!-- 如果没有命中就拒绝这条日志 -->
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <!-- 指定拆分规则 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 按照时间和压缩格式声明拆分的文件名 -->
+            <fileNamePattern>${LOG_DIR}/error/%d{yyyy-MM-dd}/error.%i.log.gz</fileNamePattern>
+            <!-- 日志文件的保存期限
+                 单位是根据 fileNamePattern 中的翻转策略自动推算出来的
+                 例如上面选用了 yyyy-MM-dd, 则单位为天
+                 如果上面选用了 yyyy-MM, 则单位为月
+                 上面的单位默认为 yyyy-MM-dd
+            -->
+            <maxHistory>30</maxHistory>
+            <!-- 日志文件总占用内存大小 -->
+            <totalSizeCap>20GB</totalSizeCap>
+            <!-- 拆分单位，单个日志文件大小 -->
+            <maxFileSize>10MB</maxFileSize>
+        </rollingPolicy>
+        <!-- 日志消息格式 -->
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+            <charset>${ENCODING}</charset>
+        </encoder>
+    </appender>
+    
+    <!-- root 是默认的 logger，只使用控制它输出 -->
+    <root level="info">
+        <appender-ref ref="console" />
+    </root>
+    
+    <!-- 
+        指定包日志配置 
+        additivity 
+            为 true 时，这个logger 标签会继承 root
+            如果 root 调用控制台输出，logger 也有控制台输出，会打印两遍
+            一般情况下都会设置成 false 单独配置 logger
+    -->
+    <logger name="com.beloved" level="debug" additivity="false" >
+        <appender-ref ref="console" />
+        <appender-ref ref="info_log" />
+        <appender-ref ref="error_log" />
+    </logger>
+    
+</configuration>
