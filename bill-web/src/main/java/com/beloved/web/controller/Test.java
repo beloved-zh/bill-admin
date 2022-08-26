@@ -1,7 +1,6 @@
 package com.beloved.web.controller;
 
 import com.beloved.common.model.entity.SysMenu;
-import com.beloved.common.model.entity.SysUser;
 import com.beloved.system.service.SysMenuService;
 import com.beloved.system.service.SysUserService;
 import lombok.extern.slf4j.Slf4j;
@@ -23,12 +22,6 @@ public class Test {
     
     @Autowired
     private SysMenuService menuService;
-    
-    @GetMapping("/test01")
-    public SysUser test02() {
-        log.debug("test01");
-        return userService.queryUserByUserName("admin");
-    }
 
     @GetMapping("/queryMenuList")
     public List<SysMenu> queryMenuList() {

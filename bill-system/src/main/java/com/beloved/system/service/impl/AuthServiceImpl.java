@@ -1,7 +1,6 @@
 package com.beloved.system.service.impl;
 
 import com.beloved.common.model.dto.UserInfoDto;
-import com.beloved.common.model.entity.SysUser;
 import com.beloved.system.service.AuthService;
 import com.beloved.system.utils.SecurityUtils;
 import org.springframework.stereotype.Service;
@@ -16,9 +15,6 @@ public class AuthServiceImpl implements AuthService {
     
     @Override
     public UserInfoDto getUserInfo() {
-        
-        SysUser user = SecurityUtils.getLoginUser().getUser();
-
-        return new UserInfoDto(user);
+        return SecurityUtils.getLoginUser().getUser();
     }
 }

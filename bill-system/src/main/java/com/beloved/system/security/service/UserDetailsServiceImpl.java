@@ -1,6 +1,6 @@
 package com.beloved.system.security.service;
 
-import com.beloved.common.model.entity.SysUser;
+import com.beloved.common.model.dto.UserInfoDto;
 import com.beloved.system.security.bo.LoginUser;
 import com.beloved.system.service.SysUserService;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +26,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        SysUser user = userService.queryUserByUserName(username);
+        UserInfoDto user = userService.queryUserByUserName(username);
 
         if (ObjectUtils.isEmpty(user)) {
             throw new UsernameNotFoundException("Username Not Found");

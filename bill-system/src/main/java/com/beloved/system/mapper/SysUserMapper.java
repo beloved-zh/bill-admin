@@ -1,5 +1,6 @@
 package com.beloved.system.mapper;
 
+import com.beloved.common.model.dto.UserInfoDto;
 import com.beloved.common.model.entity.SysUser;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -20,7 +21,7 @@ public interface SysUserMapper {
      * @param userName 用户名
      * @return 用户对象
      */
-    SysUser queryUserByUserName(String userName);
+    UserInfoDto queryUserByUserName(String userName);
     
     int updateUser(SysUser user);
 }

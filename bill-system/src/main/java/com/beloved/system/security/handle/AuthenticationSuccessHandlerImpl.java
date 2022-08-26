@@ -1,9 +1,10 @@
 package com.beloved.system.security.handle;
 
 import com.alibaba.fastjson2.JSON;
+import com.beloved.common.converter.UserConverter;
 import com.beloved.common.model.ResultVo;
-import com.beloved.common.model.vo.auth.TokenVo;
 import com.beloved.common.model.entity.SysUser;
+import com.beloved.common.model.vo.auth.TokenVo;
 import com.beloved.common.utils.ServletUtils;
 import com.beloved.system.security.bo.LoginUser;
 import com.beloved.system.security.bo.TokenConfig;
@@ -38,6 +39,9 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
     
     @Autowired
     private SysUserService userService;
+    
+    @Autowired
+    private UserConverter userConverter;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
@@ -46,7 +50,7 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
         
         String token = tokenService.createToken(loginUser);
 
-        SysUser user = loginUser.getUser();
+        SysUser user = userConverter.toSysUser(loginUser.getUser());
         user.setLoginIp(ServletUtils.getClientIP(request));
         user.setLoginDate(new Date());
         userService.updateUser(user);

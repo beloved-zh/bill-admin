@@ -1,9 +1,9 @@
 package com.beloved.web.controller.system;
 
-import com.beloved.common.model.dto.CaptchaDto;
+import com.beloved.common.converter.UserConverter;
+import com.beloved.common.model.vo.auth.CaptchaVo;
 import com.beloved.common.model.vo.auth.RouteVo;
-import com.beloved.common.model.dto.UserInfoDto;
-import com.beloved.common.utils.ObjectUtils;
+import com.beloved.common.model.vo.auth.UserInfoVo;
 import com.beloved.system.service.AuthService;
 import com.beloved.system.service.CaptchaService;
 import com.beloved.web.controller.common.BaseController;
@@ -27,23 +27,23 @@ public class AuthController extends BaseController {
     
     @Autowired
     private AuthService authService;
-    
+
+    @Autowired
+    private UserConverter userConverter;
     
     @GetMapping("/captcha")
-    public CaptchaDto captcha() {
+    public CaptchaVo captcha() {
         return captchaService.createCaptcha();
     }
 
     @GetMapping("/getUserInfo")
-    public UserInfoDto getUserinfo() {
-        return authService.getUserInfo();
+    public UserInfoVo getUserinfo() {
+        return userConverter.toVo(authService.getUserInfo());
     }
     
     @PostMapping("/getRoutes")
     public RouteVo getRoutes(Long parentId) {
-        if (ObjectUtils.isEmpty(parentId)) {
-            parentId = 0L;
-        }
+        
         return null;
     }
 }

@@ -1,5 +1,6 @@
 package com.beloved.system.service.impl;
 
+import com.beloved.common.model.dto.UserInfoDto;
 import com.beloved.common.model.entity.SysUser;
 import com.beloved.system.mapper.SysUserMapper;
 import com.beloved.system.service.SysUserService;
@@ -27,7 +28,7 @@ public class SysUserServiceImpl implements SysUserService {
      * @return 用户对象
      */
     @Override
-    public SysUser queryUserByUserName(String userName) {
+    public UserInfoDto queryUserByUserName(String userName) {
         return userMapper.queryUserByUserName(userName);
     }
 

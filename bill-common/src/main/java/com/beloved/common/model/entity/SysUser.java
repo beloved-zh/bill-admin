@@ -4,7 +4,6 @@ import com.beloved.common.model.BaseEntity;
 import lombok.Data;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  * <p>
@@ -73,10 +72,5 @@ public class SysUser extends BaseEntity {
      * 最后登录时间
      */
     private Date loginDate;
-
-    /**
-     * 角色
-     */
-    private List<SysRole> roles;
 
 }

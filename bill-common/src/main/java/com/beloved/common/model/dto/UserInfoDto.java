@@ -1,11 +1,11 @@
 package com.beloved.common.model.dto;
 
 import com.beloved.common.model.entity.SysRole;
-import com.beloved.common.model.entity.SysUser;
 import lombok.Data;
 
+import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @Author: Beloved
@@ -13,19 +13,21 @@ import java.util.stream.Collectors;
  * @Description: 用户信息
  */
 @Data
-public class UserInfoDto {
+public class UserInfoDto implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     
+    private Long userId;
+    private String userName;
     private String nickName;
-    private String avatar;
     private String email;
     private String phoneNumber;
-    private List<String> roles;
+    private String sex;
+    private String avatar;
+    private String password;
+    private String status;
+    private String loginIp;
+    private Date loginDate;
+    private List<SysRole> roles;
     
-    public UserInfoDto(SysUser user) {
-        this.nickName = user.getNickName();
-        this.avatar = user.getAvatar();
-        this.email = user.getEmail();
-        this.phoneNumber = user.getPhoneNumber();
-        this.roles = user.getRoles().stream().map(SysRole::getRoleName).collect(Collectors.toList());
-    }
 }

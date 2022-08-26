@@ -1,6 +1,6 @@
 package com.beloved.system.service;
 
-import com.beloved.common.model.dto.CaptchaDto;
+import com.beloved.common.model.vo.auth.CaptchaVo;
 
 /**
  * @Author: Beloved
@@ -9,7 +9,7 @@ import com.beloved.common.model.dto.CaptchaDto;
  */
 public interface CaptchaService {
 
-    CaptchaDto createCaptcha();
+    CaptchaVo createCaptcha();
     
     void verify(String uuid, String code);
 }

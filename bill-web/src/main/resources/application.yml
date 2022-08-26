@@ -38,7 +38,7 @@ mybatis:
   # mapper映射文件
   mapper-locations: classpath*:mapper/**/*Mapper.xml
   # 指定包别名
-  type-aliases-package: com.beloved.**.entity
+  type-aliases-package: com.beloved.**.entity,;com.beloved.**.dto
 
 # token配置
 token:
@@ -49,6 +49,6 @@ token:
 
   
 bill:
-  captcha-on-off: false
+  captcha-on-off: true
   captcha-type: gif
   captcha-expiration: 2

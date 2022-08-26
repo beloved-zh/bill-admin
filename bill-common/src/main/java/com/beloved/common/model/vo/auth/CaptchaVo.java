@@ -1,4 +1,4 @@
-package com.beloved.common.model.dto;
+package com.beloved.common.model.vo.auth;
 
 import lombok.Data;
 
@@ -8,7 +8,7 @@ import lombok.Data;
  * @Description:
  */
 @Data
-public class CaptchaDto {
+public class CaptchaVo {
     
     private Boolean onOff;
     

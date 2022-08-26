@@ -1,5 +1,6 @@
 package com.beloved.system.service;
 
+import com.beloved.common.model.dto.UserInfoDto;
 import com.beloved.common.model.entity.SysUser;
 /**
  * <p>
@@ -17,7 +18,7 @@ public interface SysUserService {
      * @param userName 用户名
      * @return 用户对象
      */
-    SysUser queryUserByUserName(String userName);
+    UserInfoDto queryUserByUserName(String userName);
 
     /**
      * 修改用户信息

@@ -8,7 +8,7 @@ import lombok.Data;
  * @Description:
  */
 @Data
-public class TokenDto {
+public class TokenVo {
     
     private String header;
     private String tokenPrefix;

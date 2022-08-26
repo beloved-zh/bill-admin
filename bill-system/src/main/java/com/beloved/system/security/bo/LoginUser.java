@@ -1,6 +1,6 @@
 package com.beloved.system.security.bo;
 
-import com.beloved.common.model.entity.SysUser;
+import com.beloved.common.model.dto.UserInfoDto;
 import com.beloved.common.utils.BooleanUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,14 +22,14 @@ public class LoginUser implements UserDetails {
 
     private static final long serialVersionUID = 1L;
 
-    public LoginUser(SysUser user) {
+    public LoginUser(UserInfoDto user) {
         this.user = user;
     }
 
     /**
      * 用户信息
      */
-    private SysUser user;
+    private UserInfoDto user;
 
     /**
      * 用户登录唯一标识

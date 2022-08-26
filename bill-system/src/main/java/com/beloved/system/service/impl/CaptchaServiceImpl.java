@@ -7,7 +7,7 @@ import com.beloved.common.constant.CaptchaConstants;
 import com.beloved.common.constant.RedisConstants;
 import com.beloved.common.enums.ErrorCode;
 import com.beloved.common.exception.MyAuthenticationException;
-import com.beloved.common.model.dto.CaptchaDto;
+import com.beloved.common.model.vo.auth.CaptchaVo;
 import com.beloved.common.utils.ObjectUtils;
 import com.beloved.common.utils.RedisUtils;
 import com.beloved.common.utils.StringUtils;
@@ -35,12 +35,12 @@ public class CaptchaServiceImpl implements CaptchaService {
     private RedisUtils redisUtils;
 
     @Override
-    public CaptchaDto createCaptcha() {
-        CaptchaDto captchaDto = new CaptchaDto();
+    public CaptchaVo createCaptcha() {
+        CaptchaVo captchaDto = new CaptchaVo();
         
         Boolean captchaOnOff = billConfig.getCaptchaOnOff();
+        captchaDto.setOnOff(captchaOnOff);
         if (!captchaOnOff) {
-            captchaDto.setOnOff(captchaOnOff);
             return captchaDto;
         }
 
