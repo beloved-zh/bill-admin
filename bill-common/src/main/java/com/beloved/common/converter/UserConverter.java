@@ -6,7 +6,6 @@ import com.beloved.common.model.entity.SysRole;
 import com.beloved.common.model.entity.SysUser;
 import com.beloved.common.model.vo.auth.UserInfoVo;
 import com.beloved.common.service.BaseEnum;
-import com.beloved.common.utils.DateUtils;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -30,7 +29,6 @@ public interface UserConverter {
 
     @Mappings({
         @Mapping(target = "sex", expression = "java(BaseEnum.getLabelByValue(userInfo.getSex(), GenderEnum.class))"),
-        @Mapping(source = "loginDate", target = "loginDate", dateFormat = DateUtils.YYYY_MM_DD_HH_MM_SS),
         @Mapping(target = "roles", expression = "java(userInfo.getRoles().stream().map(SysRole::getRoleName).collect(Collectors.toList()))")
     })
     UserInfoVo toVo(UserInfoDto userInfo);

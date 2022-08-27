@@ -2,6 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.beloved.system.mapper.SysMenuMapper">
 
+    <select id="queryMenuListByUserId" resultType="sysMenu">
+        select sm.*
+        from sys_menu sm
+        left join sys_role_menu srm on sm.menu_id = srm.menu_id
+        left join sys_role sr on srm.role_id = sr.role_id
+        left join sys_user_role sur on sr.role_id = sur.role_id
+        where sm.status = 0 and sr.status = 0 
+        and sur.user_id = #{userId} 
+        order by sm.parent_id, sm.order_num
+    </select>
+    
     <select id="queryMenuList" resultType="sysMenu">
         select * from sys_menu
         <where>

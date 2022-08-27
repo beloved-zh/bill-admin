@@ -49,6 +49,6 @@ token:
 
   
 bill:
-  captcha-on-off: true
+  captcha-on-off: false
   captcha-type: gif
   captcha-expiration: 2

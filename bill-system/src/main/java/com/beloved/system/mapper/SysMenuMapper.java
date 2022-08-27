@@ -16,6 +16,8 @@ import java.util.List;
 @Mapper
 public interface SysMenuMapper {
 
+    List<SysMenu> queryMenuListByUserId(Long userId);
+    
     List<SysMenu> queryMenuList(SysMenu menu);
     
 }

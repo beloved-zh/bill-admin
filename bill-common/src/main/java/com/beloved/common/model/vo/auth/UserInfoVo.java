@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * @Author: Beloved
  * @CreateTime: 2022-08-19 13:20
- * @Description:
+ * @Description: 登录用户信息
  */
 @Data
 public class UserInfoVo {
@@ -16,11 +16,7 @@ public class UserInfoVo {
     
     private String userName;
     private String nickName;
-    private String email;
-    private String phoneNumber;
     private String sex;
     private String avatar;
-    private String loginIp;
-    private String loginDate;
     private List<String> roles;
 }

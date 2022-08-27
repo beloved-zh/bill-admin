@@ -1,6 +1,9 @@
 package com.beloved.system.service;
 
+import com.beloved.common.model.dto.MenuDto;
 import com.beloved.common.model.dto.UserInfoDto;
+
+import java.util.List;
 
 /**
  * @Author: Beloved
@@ -10,5 +13,6 @@ import com.beloved.common.model.dto.UserInfoDto;
 public interface AuthService {
     
     UserInfoDto getUserInfo();
-    
+
+    List<MenuDto> queryMenuTree();
 }
