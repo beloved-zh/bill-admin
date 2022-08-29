@@ -6,7 +6,7 @@ import com.beloved.common.enums.ResultCode;
 import com.beloved.common.model.ResultVo;
 import com.beloved.common.utils.ObjectUtils;
 import com.beloved.common.utils.ServletUtils;
-import com.beloved.system.security.bo.LoginUser;
+import com.beloved.system.security.dto.LoginUser;
 import com.beloved.system.security.service.TokenService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

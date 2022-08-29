@@ -8,6 +8,7 @@ import com.beloved.system.service.SysMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,11 +40,12 @@ public class SysMenuServiceImpl implements SysMenuService {
     private List<MenuDto> getTopLevelMenuTree(List<MenuDto> menuList) {
         
         List<MenuDto> menuTree = menuList.stream()
-                .filter(menu -> menu.getMenuId().equals(menu.getParentId()))
+                .filter(menu -> menu.getParentId() == 0)
                 .map(menu -> {
                     menu.setChildren(getMenuTree(menuList, menu));
                     return menu;
                 })
+                .sorted(Comparator.comparing(MenuDto::getOrderNum))
                 .collect(Collectors.toList());
 
         return menuTree;
@@ -52,11 +54,12 @@ public class SysMenuServiceImpl implements SysMenuService {
     private List<MenuDto> getMenuTree(List<MenuDto> menuList, MenuDto parentMenu) {
 
         List<MenuDto> children = menuList.stream()
-                .filter(item -> !parentMenu.getMenuId().equals(item.getMenuId()) && parentMenu.getMenuId().equals(item.getParentId()))
+                .filter(item -> parentMenu.getMenuId().equals(item.getParentId()))
                 .map(menu -> {
                     menu.setChildren(getMenuTree(menuList, menu));
                     return menu;
                 })
+                .sorted(Comparator.comparing(MenuDto::getOrderNum))
                 .collect(Collectors.toList());
 
         return children;

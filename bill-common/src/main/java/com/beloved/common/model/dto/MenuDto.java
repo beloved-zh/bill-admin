@@ -1,5 +1,6 @@
 package com.beloved.common.model.dto;
 
+import com.beloved.common.enums.MenuTypeEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
@@ -45,34 +46,29 @@ public class MenuDto {
     private String component;
 
     /**
-     * 路由参数
-     */
-    private String query;
-
-    /**
-     * 是否为外链（0是 1否）
+     * 是否为外链（0否 1是）
      */
     private Integer isFrame;
 
     /**
-     * 是否缓存（0缓存 1不缓存）
+     * 是否缓存（0不缓存 1缓存）
      */
     private Integer isCache;
 
     /**
-     * 菜单类型（M目录 C菜单 F按钮）
+     * 是否隐藏（0否 1是）
      */
-    private String menuType;
+    private Integer hidden;
+    
+    /**
+     * 菜单类型（D目录 M菜单 B按钮）
+     */
+    private MenuTypeEnum menuType;
 
     /**
-     * 菜单状态（0正常 1停用）
+     * 菜单状态（0停用 1正常）
      */
-    private String status;
-
-    /**
-     * 权限标识
-     */
-    private String perms;
+    private Integer status;
 
     /**
      * 菜单图标

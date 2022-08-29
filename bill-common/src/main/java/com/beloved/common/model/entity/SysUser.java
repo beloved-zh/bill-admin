@@ -46,7 +46,7 @@ public class SysUser extends BaseEntity {
     /**
      * 用户性别（0男 1女 2未知）
      */
-    private String sex;
+    private Integer sex;
 
     /**
      * 头像地址
@@ -59,9 +59,9 @@ public class SysUser extends BaseEntity {
     private String password;
 
     /**
-     * 帐号状态（0正常 1停用）
+     * 帐号状态（0停用 1正常）
      */
-    private String status;
+    private Integer status;
 
     /**
      * 最后登录IP

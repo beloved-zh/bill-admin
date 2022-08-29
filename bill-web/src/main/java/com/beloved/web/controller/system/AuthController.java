@@ -9,10 +9,7 @@ import com.beloved.system.service.AuthService;
 import com.beloved.system.service.CaptchaService;
 import com.beloved.web.controller.common.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -49,7 +46,6 @@ public class AuthController extends BaseController {
     
     @PostMapping("/getRoutes")
     public List<RouteVo> getRoutes() {
-        
         return menuConverter.toArrayRoute(authService.queryMenuTree());
     }
 }

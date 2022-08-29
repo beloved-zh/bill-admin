@@ -22,10 +22,10 @@ public class UserInfoDto implements Serializable {
     private String nickName;
     private String email;
     private String phoneNumber;
-    private String sex;
+    private Integer sex;
     private String avatar;
     private String password;
-    private String status;
+    private Integer status;
     private String loginIp;
     private Date loginDate;
     private List<SysRole> roles;

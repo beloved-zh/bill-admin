@@ -1,4 +1,4 @@
-package com.beloved.system.security.bo;
+package com.beloved.system.security.dto;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
