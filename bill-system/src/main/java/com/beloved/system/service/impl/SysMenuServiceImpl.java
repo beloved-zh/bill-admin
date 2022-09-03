@@ -41,10 +41,7 @@ public class SysMenuServiceImpl implements SysMenuService {
         
         List<MenuDto> menuTree = menuList.stream()
                 .filter(menu -> menu.getParentId() == 0)
-                .map(menu -> {
-                    menu.setChildren(getMenuTree(menuList, menu));
-                    return menu;
-                })
+                .peek(menu -> menu.setChildren(getMenuTree(menuList, menu)))
                 .sorted(Comparator.comparing(MenuDto::getOrderNum))
                 .collect(Collectors.toList());
 
@@ -55,10 +52,7 @@ public class SysMenuServiceImpl implements SysMenuService {
 
         List<MenuDto> children = menuList.stream()
                 .filter(item -> parentMenu.getMenuId().equals(item.getParentId()))
-                .map(menu -> {
-                    menu.setChildren(getMenuTree(menuList, menu));
-                    return menu;
-                })
+                .peek(menu -> menu.setChildren(getMenuTree(menuList, menu)))
                 .sorted(Comparator.comparing(MenuDto::getOrderNum))
                 .collect(Collectors.toList());
 

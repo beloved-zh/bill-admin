@@ -44,8 +44,8 @@ public class AuthController extends BaseController {
         return userConverter.toVo(authService.getUserInfo());
     }
     
-    @PostMapping("/getRoutes")
-    public List<RouteVo> getRoutes() {
+    @PostMapping("/getMenuTree")
+    public List<RouteVo> getMenuTree() {
         return menuConverter.toArrayRoute(authService.queryMenuTree());
     }
 }
