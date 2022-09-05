@@ -3,7 +3,7 @@ package com.beloved.web.controller.system;
 import com.beloved.common.converter.MenuConverter;
 import com.beloved.common.converter.UserConverter;
 import com.beloved.common.model.vo.auth.CaptchaVo;
-import com.beloved.common.model.vo.auth.RouteVo;
+import com.beloved.common.model.vo.auth.MenuTreeVo;
 import com.beloved.common.model.vo.auth.UserInfoVo;
 import com.beloved.system.service.AuthService;
 import com.beloved.system.service.CaptchaService;
@@ -45,7 +45,7 @@ public class AuthController extends BaseController {
     }
     
     @PostMapping("/getMenuTree")
-    public List<RouteVo> getMenuTree() {
-        return menuConverter.toArrayRoute(authService.queryMenuTree());
+    public List<MenuTreeVo> getMenuTree() {
+        return menuConverter.toArraytoMenuTreeVo(authService.queryMenuTree());
     }
 }

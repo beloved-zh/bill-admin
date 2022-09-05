@@ -10,7 +10,7 @@ import java.util.List;
  * @Description: 菜单路由实体
  */
 @Data
-public class RouteVo {
+public class MenuTreeVo {
     
     private String name;
     
@@ -34,5 +34,5 @@ public class RouteVo {
         private Boolean keepAlive;
     }
 
-    private List<RouteVo> children;
+    private List<MenuTreeVo> children;
 }

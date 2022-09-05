@@ -3,7 +3,7 @@ package com.beloved.common.converter;
 import com.beloved.common.enums.MenuTypeEnum;
 import com.beloved.common.model.dto.MenuDto;
 import com.beloved.common.model.entity.SysMenu;
-import com.beloved.common.model.vo.auth.RouteVo;
+import com.beloved.common.model.vo.auth.MenuTreeVo;
 import com.beloved.common.service.BaseEnum;
 import com.beloved.common.utils.BooleanUtils;
 import com.beloved.common.utils.StringUtils;
@@ -12,7 +12,6 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @Author: Beloved
@@ -44,18 +43,7 @@ public interface MenuConverter {
         @Mapping(target = "meta.fixed", expression = "java(BooleanUtils.toBoolean(menuDto.getFixed()))"),
         @Mapping(target = "meta.keepAlive", expression = "java(BooleanUtils.toBoolean(menuDto.getIsCache()))"),
     })
-    RouteVo toRoute(MenuDto menuDto);
+    MenuTreeVo toMenuTreeVo(MenuDto menuDto);
 
-    List<RouteVo> toArrayRoute(List<MenuDto> menuList);
-    
-    default String getFindFirstChildrenPath(List<MenuDto> children) {
-
-        Optional<MenuDto> menuDto = children.stream().findFirst();
-        
-        if (menuDto.isPresent()) {
-            return menuDto.get().getPath();
-        }
-
-        return null;
-    }
+    List<MenuTreeVo> toArraytoMenuTreeVo(List<MenuDto> menuList);
 }
