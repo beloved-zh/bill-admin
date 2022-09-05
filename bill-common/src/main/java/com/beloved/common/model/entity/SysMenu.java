@@ -62,6 +62,11 @@ public class SysMenu extends BaseEntity {
     private Integer hidden;
 
     /**
+     * 是否固定tag（0否 1是）
+     */
+    private Integer fixed;
+
+    /**
      * 菜单类型（D目录 M菜单 B按钮）
      */
     private String menuType;

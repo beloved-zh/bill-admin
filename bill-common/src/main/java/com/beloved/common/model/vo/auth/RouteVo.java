@@ -29,9 +29,8 @@ public class RouteVo {
         
         private Boolean hidden;
         
-        /**
-         * 页面缓存开启状态
-         */
+        private Boolean fixed;
+        
         private Boolean keepAlive;
     }
 

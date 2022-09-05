@@ -41,6 +41,7 @@ public interface MenuConverter {
         @Mapping(source = "menuName", target = "meta.title"),
         @Mapping(source = "icon", target = "meta.icon"),
         @Mapping(target = "meta.hidden", expression = "java(BooleanUtils.toBoolean(menuDto.getHidden()))"),
+        @Mapping(target = "meta.fixed", expression = "java(BooleanUtils.toBoolean(menuDto.getFixed()))"),
         @Mapping(target = "meta.keepAlive", expression = "java(BooleanUtils.toBoolean(menuDto.getIsCache()))"),
     })
     RouteVo toRoute(MenuDto menuDto);
