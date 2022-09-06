@@ -46,14 +46,14 @@ public class MenuDto {
     private String component;
 
     /**
-     * 是否为外链（0否 1是）
+     * iframe 标签地址
      */
-    private Integer isFrame;
+    private String iframePath;
 
     /**
      * 是否缓存（0不缓存 1缓存）
      */
-    private Integer isCache;
+    private Integer hasCache;
 
     /**
      * 是否隐藏（0否 1是）

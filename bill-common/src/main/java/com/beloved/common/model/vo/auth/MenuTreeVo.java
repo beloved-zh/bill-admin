@@ -32,6 +32,8 @@ public class MenuTreeVo {
         private Boolean fixed;
         
         private Boolean keepAlive;
+        
+        private String iframe;
     }
 
     private List<MenuTreeVo> children;
