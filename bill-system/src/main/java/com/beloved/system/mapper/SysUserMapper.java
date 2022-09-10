@@ -1,6 +1,6 @@
 package com.beloved.system.mapper;
 
-import com.beloved.common.model.dto.UserInfoDto;
+import com.beloved.common.model.dto.system.UserInfoDto;
 import com.beloved.common.model.entity.SysUser;
 import org.apache.ibatis.annotations.Mapper;
 

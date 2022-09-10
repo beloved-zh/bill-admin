@@ -1,9 +1,11 @@
 package com.beloved.common.converter;
 
 import com.beloved.common.enums.MenuTypeEnum;
-import com.beloved.common.model.dto.MenuDto;
+import com.beloved.common.enums.StatusEnum;
+import com.beloved.common.model.dto.system.MenuDto;
 import com.beloved.common.model.entity.SysMenu;
-import com.beloved.common.model.vo.auth.MenuTreeVo;
+import com.beloved.common.model.request.system.MenuRequest;
+import com.beloved.common.model.vo.system.MenuTreeVo;
 import com.beloved.common.service.BaseEnum;
 import com.beloved.common.utils.BooleanUtils;
 import com.beloved.common.utils.StringUtils;
@@ -20,6 +22,7 @@ import java.util.List;
  */
 @Mapper(componentModel = "spring", imports = {
     BaseEnum.class,
+    StatusEnum.class,
     MenuTypeEnum.class,
     BooleanUtils.class,
     StringUtils.class
@@ -47,4 +50,9 @@ public interface MenuConverter {
     MenuTreeVo toMenuTreeVo(MenuDto menuDto);
 
     List<MenuTreeVo> toArraytoMenuTreeVo(List<MenuDto> menuList);
+
+    @Mappings({
+        @Mapping(target = "state", expression = "java(BaseEnum.getValueByLabel(request.getState(), StatusEnum.class, Integer.class))"),
+    })
+    SysMenu requestToMenu(MenuRequest request);
 }

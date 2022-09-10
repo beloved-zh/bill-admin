@@ -1,6 +1,6 @@
 package com.beloved.system.service.impl;
 
-import com.beloved.common.model.dto.UserInfoDto;
+import com.beloved.common.model.dto.system.UserInfoDto;
 import com.beloved.common.model.entity.SysUser;
 import com.beloved.system.mapper.SysUserMapper;
 import com.beloved.system.service.SysUserService;

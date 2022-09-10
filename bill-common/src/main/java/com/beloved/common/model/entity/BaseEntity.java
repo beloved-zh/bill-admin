@@ -1,4 +1,4 @@
-package com.beloved.common.model;
+package com.beloved.common.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;

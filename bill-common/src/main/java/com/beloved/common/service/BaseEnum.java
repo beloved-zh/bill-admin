@@ -16,8 +16,8 @@ public interface BaseEnum<T> {
 
     String getLabel();
 
-    static <E extends Enum<E> & BaseEnum> E getEnumByValue(Object value, Class<E> clazz) {
-        Objects.requireNonNull(value);
+    static <E extends Enum<E> & BaseEnum<T>, T> E getEnumByValue(T value, Class<E> clazz) {
+        if (ObjectUtils.isEmpty(value)) return null;
         EnumSet<E> allEnums = EnumSet.allOf(clazz); // 获取类型下的所有枚举
         E matchEnum = allEnums.stream()
                 .filter(e -> Objects.equals(e.getValue(), value))
@@ -26,8 +26,8 @@ public interface BaseEnum<T> {
         return matchEnum;
     }
     
-    static <E extends Enum<E> & BaseEnum> String getLabelByValue(Object value, Class<E> clazz) {
-        Objects.requireNonNull(value);
+    static <E extends Enum<E> & BaseEnum<T>, T> String getLabelByValue(T value, Class<E> clazz) {
+        if (ObjectUtils.isEmpty(value)) return null;
         EnumSet<E> allEnums = EnumSet.allOf(clazz); // 获取类型下的所有枚举
         E matchEnum = allEnums.stream()
                 .filter(e -> Objects.equals(e.getValue(), value))
@@ -40,8 +40,8 @@ public interface BaseEnum<T> {
         return null;
     }
 
-    static <E extends Enum<E> & BaseEnum> Object getValueByLabel(String label, Class<E> clazz) {
-        Objects.requireNonNull(label);
+    static <E extends Enum<E> & BaseEnum<T>, T> T getValueByLabel(String label, Class<E> clazz, Class<T> type) {
+        if (ObjectUtils.isEmpty(label)) return null;
         EnumSet<E> allEnums = EnumSet.allOf(clazz); // 获取类型下的所有枚举
         E matchEnum = allEnums.stream()
                 .filter(e -> Objects.equals(e.getLabel(), label))

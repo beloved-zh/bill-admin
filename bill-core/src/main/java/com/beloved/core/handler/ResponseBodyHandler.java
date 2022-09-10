@@ -3,7 +3,7 @@ package com.beloved.core.handler;
 import com.beloved.common.annotation.RawData;
 import com.beloved.common.enums.ErrorCode;
 import com.beloved.common.exception.ServiceException;
-import com.beloved.common.model.ResultVo;
+import com.beloved.common.model.vo.ResultVo;
 import com.beloved.common.utils.ObjectUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

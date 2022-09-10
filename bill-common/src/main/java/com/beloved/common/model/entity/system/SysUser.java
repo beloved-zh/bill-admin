@@ -1,6 +1,6 @@
-package com.beloved.common.model.entity;
+package com.beloved.common.model.entity.system;
 
-import com.beloved.common.model.BaseEntity;
+import com.beloved.common.model.entity.BaseEntity;
 import lombok.Data;
 
 import java.util.Date;
@@ -61,7 +61,7 @@ public class SysUser extends BaseEntity {
     /**
      * 帐号状态（0停用 1正常）
      */
-    private Integer status;
+    private Integer state;
 
     /**
      * 最后登录IP

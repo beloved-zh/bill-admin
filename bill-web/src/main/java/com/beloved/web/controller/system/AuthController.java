@@ -2,9 +2,9 @@ package com.beloved.web.controller.system;
 
 import com.beloved.common.converter.MenuConverter;
 import com.beloved.common.converter.UserConverter;
-import com.beloved.common.model.vo.auth.CaptchaVo;
-import com.beloved.common.model.vo.auth.MenuTreeVo;
-import com.beloved.common.model.vo.auth.UserInfoVo;
+import com.beloved.common.model.vo.system.CaptchaVo;
+import com.beloved.common.model.vo.system.MenuTreeVo;
+import com.beloved.common.model.vo.system.UserInfoVo;
 import com.beloved.system.service.AuthService;
 import com.beloved.system.service.CaptchaService;
 import com.beloved.web.controller.common.BaseController;

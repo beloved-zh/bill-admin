@@ -1,7 +1,7 @@
 package com.beloved.system.service.impl;
 
 import com.beloved.common.converter.MenuConverter;
-import com.beloved.common.model.dto.MenuDto;
+import com.beloved.common.model.dto.system.MenuDto;
 import com.beloved.common.model.entity.SysMenu;
 import com.beloved.system.mapper.SysMenuMapper;
 import com.beloved.system.service.SysMenuService;
@@ -60,7 +60,14 @@ public class SysMenuServiceImpl implements SysMenuService {
     }
 
     @Override
-    public List<SysMenu> queryMenuList(SysMenu menu) {
-        return menuMapper.queryMenuList(menu);
+    public List<MenuDto> queryMenuList(SysMenu menu) {
+        return menuConverter.toArrayDto(menuMapper.queryMenuList(menu));
+    }
+
+    @Override
+    public List<MenuDto> queryMenuTree(SysMenu menu) {
+        List<MenuDto> menuDtoList = menuConverter.toArrayDto(menuMapper.queryMenuList(menu));
+
+        return this.getTopLevelMenuTree(menuDtoList);
     }
 }

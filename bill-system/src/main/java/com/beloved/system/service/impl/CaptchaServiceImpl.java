@@ -7,7 +7,7 @@ import com.beloved.common.constant.CaptchaConstants;
 import com.beloved.common.constant.RedisConstants;
 import com.beloved.common.enums.ErrorCode;
 import com.beloved.common.exception.MyAuthenticationException;
-import com.beloved.common.model.vo.auth.CaptchaVo;
+import com.beloved.common.model.vo.system.CaptchaVo;
 import com.beloved.common.utils.ObjectUtils;
 import com.beloved.common.utils.RedisUtils;
 import com.beloved.common.utils.StringUtils;

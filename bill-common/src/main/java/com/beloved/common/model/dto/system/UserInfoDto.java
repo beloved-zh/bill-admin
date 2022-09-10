@@ -1,6 +1,6 @@
-package com.beloved.common.model.dto;
+package com.beloved.common.model.dto.system;
 
-import com.beloved.common.model.entity.SysRole;
+import com.beloved.common.model.entity.system.SysRole;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -25,7 +25,7 @@ public class UserInfoDto implements Serializable {
     private Integer sex;
     private String avatar;
     private String password;
-    private Integer status;
+    private Integer state;
     private String loginIp;
     private Date loginDate;
     private List<SysRole> roles;

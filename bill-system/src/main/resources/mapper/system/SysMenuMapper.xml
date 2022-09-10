@@ -8,7 +8,8 @@
         left join sys_role_menu srm on sm.menu_id = srm.menu_id
         left join sys_role sr on srm.role_id = sr.role_id
         left join sys_user_role sur on sr.role_id = sur.role_id
-        where sm.status = 1 and sr.status = 1 
+        where sm.state = 1 and sr.state = 1 
+        and sm.menu_type in ('D','M')
         and sur.user_id = #{userId} 
         order by sm.parent_id, sm.order_num
     </select>
@@ -16,8 +17,11 @@
     <select id="queryMenuList" resultType="sysMenu">
         select * from sys_menu
         <where>
-            <if test="status != null and status != ''">
-                and status = #{status}
+            <if test="menuName != null and menuName != ''">
+                and menu_name = #{menuName}
+            </if>
+            <if test="state != null">
+                and state = #{state}
             </if>
         </where>
         order by parent_id, order_num

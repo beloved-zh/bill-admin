@@ -11,7 +11,7 @@
 		<result property="sex" column="sex" />
 		<result property="avatar" column="avatar" />
 		<result property="password" column="password" />
-		<result property="status" column="status" />
+		<result property="state" column="state" />
 		<result property="loginIp" column="login_ip" />
 		<result property="loginDate" column="login_date" />
 		<collection property="roles" ofType="sysRole">
@@ -21,15 +21,15 @@
 	</resultMap>
 	
 	<select id="queryUserByUserName" resultMap="userInfoDto">
-		select u.user_id, u.user_name, u.nick_name, u.email, u.phone_number, u.sex, u.avatar, u.password, u.status, u.login_ip, u.login_date, u.remark, u.create_by, u.create_time, u.update_by, u.update_time,
+		select u.user_id, u.user_name, u.nick_name, u.email, u.phone_number, u.sex, u.avatar, u.password, u.state, u.login_ip, u.login_date, u.remark, u.create_by, u.create_time, u.update_by, u.update_time,
 			   r.role_id, r.role_name
 		from sys_user u
 		left join sys_user_role ur
 		on u.user_id = ur.user_id
 		left join sys_role r
 		on ur.role_id = r.role_id
-		where u.status = 1 
-		and r.status = 1
+		where u.state = 1 
+		and r.state = 1
 		and u.user_name = #{userName};
 	</select>
 	

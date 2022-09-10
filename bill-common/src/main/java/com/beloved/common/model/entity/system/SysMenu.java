@@ -1,6 +1,6 @@
-package com.beloved.common.model.entity;
+package com.beloved.common.model.entity.system;
 
-import com.beloved.common.model.BaseEntity;
+import com.beloved.common.model.entity.BaseEntity;
 import lombok.Data;
 
 /**
@@ -74,7 +74,7 @@ public class SysMenu extends BaseEntity {
     /**
      * 菜单状态（0停用 1正常）
      */
-    private Integer status;
+    private Integer state;
 
     /**
      * 菜单图标

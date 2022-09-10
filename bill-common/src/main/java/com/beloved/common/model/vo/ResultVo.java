@@ -1,4 +1,4 @@
-package com.beloved.common.model;
+package com.beloved.common.model.vo;
 
 import com.beloved.common.enums.ResultCode;
 import com.beloved.common.service.StatusCode;

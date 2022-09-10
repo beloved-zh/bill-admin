@@ -3,7 +3,7 @@ package com.beloved.core.handler;
 import com.beloved.common.enums.ErrorCode;
 import com.beloved.common.exception.MyAuthenticationException;
 import com.beloved.common.exception.ServiceException;
-import com.beloved.common.model.ResultVo;
+import com.beloved.common.model.vo.ResultVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;

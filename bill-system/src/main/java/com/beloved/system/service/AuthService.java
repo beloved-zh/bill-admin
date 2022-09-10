@@ -1,7 +1,7 @@
 package com.beloved.system.service;
 
-import com.beloved.common.model.dto.MenuDto;
-import com.beloved.common.model.dto.UserInfoDto;
+import com.beloved.common.model.dto.system.MenuDto;
+import com.beloved.common.model.dto.system.UserInfoDto;
 
 import java.util.List;
 

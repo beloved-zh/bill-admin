@@ -3,7 +3,7 @@ package com.beloved.system.security.handle;
 import com.alibaba.fastjson2.JSON;
 import com.beloved.common.enums.ErrorCode;
 import com.beloved.common.enums.ResultCode;
-import com.beloved.common.model.ResultVo;
+import com.beloved.common.model.vo.ResultVo;
 import com.beloved.common.utils.ObjectUtils;
 import com.beloved.common.utils.ServletUtils;
 import com.beloved.system.security.dto.LoginUser;

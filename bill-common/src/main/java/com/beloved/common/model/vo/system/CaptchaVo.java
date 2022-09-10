@@ -1,4 +1,4 @@
-package com.beloved.common.model.vo.auth;
+package com.beloved.common.model.vo.system;
 
 import lombok.Data;
 

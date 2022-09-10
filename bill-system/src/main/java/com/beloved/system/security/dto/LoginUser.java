@@ -1,6 +1,6 @@
 package com.beloved.system.security.dto;
 
-import com.beloved.common.model.dto.UserInfoDto;
+import com.beloved.common.model.dto.system.UserInfoDto;
 import com.beloved.common.utils.BooleanUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -106,6 +106,6 @@ public class LoginUser implements UserDetails {
      */
     @Override
     public boolean isEnabled() {
-        return BooleanUtils.toBoolean(this.user.getStatus());
+        return BooleanUtils.toBoolean(this.user.getState());
     }
 }

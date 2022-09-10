@@ -3,7 +3,7 @@ package com.beloved.system.security.handle;
 import com.alibaba.fastjson2.JSON;
 import com.beloved.common.enums.ErrorCode;
 import com.beloved.common.exception.MyAuthenticationException;
-import com.beloved.common.model.ResultVo;
+import com.beloved.common.model.vo.ResultVo;
 import com.beloved.common.utils.ServletUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.AuthenticationException;

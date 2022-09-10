@@ -1,6 +1,6 @@
 package com.beloved.system.service;
 
-import com.beloved.common.model.vo.auth.CaptchaVo;
+import com.beloved.common.model.vo.system.CaptchaVo;
 
 /**
  * @Author: Beloved

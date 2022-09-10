@@ -1,4 +1,4 @@
-package com.beloved.common.model.dto;
+package com.beloved.common.model.dto.system;
 
 import com.beloved.common.enums.MenuTypeEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -73,7 +73,7 @@ public class MenuDto {
     /**
      * 菜单状态（0停用 1正常）
      */
-    private Integer status;
+    private Integer state;
 
     /**
      * 菜单图标
