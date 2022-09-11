@@ -106,6 +106,6 @@ public class LoginUser implements UserDetails {
      */
     @Override
     public boolean isEnabled() {
-        return BooleanUtils.toBoolean(this.user.getState());
+        return BooleanUtils.toBoolean(this.user.getState().getValue());
     }
 }

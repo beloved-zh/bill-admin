@@ -3,6 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+    
     <!-- 全局参数 -->
     <settings>
         <!-- 使全局的映射器启用或禁用缓存 -->
@@ -16,5 +17,11 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         <!-- 使用驼峰命名法转换字段 -->
 		 <setting name="mapUnderscoreToCamelCase" value="true"/>
 	</settings>
-	
+
+    <typeHandlers>
+        <typeHandler handler="com.beloved.core.handler.mybatis.EnumTypeHandler" javaType="com.beloved.common.enums.StateEnum" />
+        <typeHandler handler="com.beloved.core.handler.mybatis.EnumTypeHandler" javaType="com.beloved.common.enums.WhetherEnum" />
+        <typeHandler handler="com.beloved.core.handler.mybatis.EnumTypeHandler" javaType="com.beloved.common.enums.GenderEnum" />
+        <typeHandler handler="com.beloved.core.handler.mybatis.EnumTypeHandler" javaType="com.beloved.common.enums.MenuTypeEnum" />
+    </typeHandlers>
 </configuration>

@@ -2,7 +2,7 @@ package com.beloved.system.service.impl;
 
 import com.beloved.common.converter.MenuConverter;
 import com.beloved.common.model.dto.system.MenuDto;
-import com.beloved.common.model.entity.SysMenu;
+import com.beloved.common.model.entity.system.SysMenu;
 import com.beloved.system.mapper.SysMenuMapper;
 import com.beloved.system.service.SysMenuService;
 import org.springframework.beans.factory.annotation.Autowired;

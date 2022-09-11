@@ -9,7 +9,7 @@ import lombok.Getter;
  * @Description: 性别枚举
  */
 @Getter
-public enum GenderEnum implements BaseEnum<Integer> {
+public enum GenderEnum implements BaseEnum<String, Integer> {
 
     MALE("男",0),
     FEMALE("女", 1),

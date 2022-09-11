@@ -1,5 +1,7 @@
 package com.beloved.common.model.entity.system;
 
+import com.beloved.common.enums.MenuTypeEnum;
+import com.beloved.common.enums.WhetherEnum;
 import com.beloved.common.model.entity.BaseEntity;
 import lombok.Data;
 
@@ -52,29 +54,25 @@ public class SysMenu extends BaseEntity {
     private String iframePath;
 
     /**
-     * 是否缓存（0不缓存 1缓存）
+     * 是否缓存（0否 1是）
      */
-    private Integer hasCache;
+    private WhetherEnum hasCache;
 
     /**
      * 是否隐藏（0否 1是）
      */
-    private Integer hidden;
+    private WhetherEnum hidden;
 
     /**
      * 是否固定tag（0否 1是）
      */
-    private Integer fixed;
+    private WhetherEnum fixed;
 
     /**
      * 菜单类型（D目录 M菜单 B按钮）
      */
-    private String menuType;
-
-    /**
-     * 菜单状态（0停用 1正常）
-     */
-    private Integer state;
+    private MenuTypeEnum menuType;
+    
 
     /**
      * 菜单图标

@@ -14,6 +14,11 @@
 		<result property="state" column="state" />
 		<result property="loginIp" column="login_ip" />
 		<result property="loginDate" column="login_date" />
+		<result property="remark" column="remark" />
+		<result property="createBy" column="create_by" />
+		<result property="createTime" column="create_time" />
+		<result property="updateBy" column="update_by" />
+		<result property="updateTime" column="update_time" />
 		<collection property="roles" ofType="sysRole">
 			<id property="roleId" column="role_id" />
 			<result property="roleName" column="role_name" />

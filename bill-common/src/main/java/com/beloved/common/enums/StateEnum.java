@@ -9,7 +9,7 @@ import lombok.Getter;
  * @Description: 状态枚举
  */
 @Getter
-public enum StatusEnum implements BaseEnum<Integer> {
+public enum StateEnum implements BaseEnum<String, Integer> {
 
     NORMAL("正常", 1),
     STOP("停用", 0);
@@ -17,7 +17,7 @@ public enum StatusEnum implements BaseEnum<Integer> {
     private String label;
     private Integer value;
 
-    StatusEnum(String label, Integer value) {
+    StateEnum(String label, Integer value) {
         this.label = label;
         this.value = value;
     }

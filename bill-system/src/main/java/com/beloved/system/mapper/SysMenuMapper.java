@@ -1,6 +1,6 @@
 package com.beloved.system.mapper;
 
-import com.beloved.common.model.entity.SysMenu;
+import com.beloved.common.model.entity.system.SysMenu;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.beloved.core.handler;
+package com.beloved.core.handler.web;
 
 import com.beloved.common.annotation.RawData;
 import com.beloved.common.enums.ErrorCode;

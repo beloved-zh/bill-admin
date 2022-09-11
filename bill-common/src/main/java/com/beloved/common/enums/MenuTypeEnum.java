@@ -9,7 +9,7 @@ import lombok.Getter;
  * @Description: 菜单类型
  */
 @Getter
-public enum MenuTypeEnum implements BaseEnum<String> {
+public enum MenuTypeEnum implements BaseEnum<String, String> {
 
     DIR("目录", "D"),
     MENU("菜单", "M"),

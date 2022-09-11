@@ -1,5 +1,6 @@
 package com.beloved.common.model.entity.system;
 
+import com.beloved.common.enums.GenderEnum;
 import com.beloved.common.model.entity.BaseEntity;
 import lombok.Data;
 
@@ -46,7 +47,7 @@ public class SysUser extends BaseEntity {
     /**
      * 用户性别（0男 1女 2未知）
      */
-    private Integer sex;
+    private GenderEnum sex;
 
     /**
      * 头像地址
@@ -57,12 +58,7 @@ public class SysUser extends BaseEntity {
      * 密码
      */
     private String password;
-
-    /**
-     * 帐号状态（0停用 1正常）
-     */
-    private Integer state;
-
+    
     /**
      * 最后登录IP
      */

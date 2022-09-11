@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.beloved.system.mapper.SysDictTypeMapper">
+    
+    <select id="querySysDictTypeByType" resultType="sysDictType">
+        select * from sys_dict_type
+        where state = 1 and dict_type = #{dictType}
+    </select>
+
+    <select id="querySysDictTypeDataByType" resultType="sysDictType">
+        select * from sys_dict_type
+        where state = 1 and dict_type = #{dictType}
+    </select>
+    
+    <insert id="add" useGeneratedKeys="true">
+        insert into sys_dict_type(dict_name, dict_type, state)
+        values (#{dictName}, #{dictType}, #{state})
+    </insert>
+</mapper>

@@ -1,4 +1,4 @@
-package com.beloved.core.handler;
+package com.beloved.core.handler.web;
 
 import com.beloved.common.enums.ErrorCode;
 import com.beloved.common.exception.MyAuthenticationException;

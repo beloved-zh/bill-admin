@@ -31,10 +31,5 @@ public class SysRole extends BaseEntity {
      */
     private Integer roleSort;
 
-    /**
-     * 角色状态（0停用 1正常）
-     */
-    private Integer state;
-
 
 }

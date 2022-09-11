@@ -1,5 +1,6 @@
 package com.beloved.common.model.entity;
 
+import com.beloved.common.enums.StateEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
@@ -16,6 +17,11 @@ public class BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * 状态（0停用 1正常）
+     */
+    private StateEnum state;
+    
     /**
      * 备注
      */

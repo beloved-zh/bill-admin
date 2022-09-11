@@ -1,7 +1,8 @@
 package com.beloved.system.service;
 
 import com.beloved.common.model.dto.system.UserInfoDto;
-import com.beloved.common.model.entity.SysUser;
+import com.beloved.common.model.entity.system.SysUser;
+
 /**
  * <p>
  * 用户信息表 服务类

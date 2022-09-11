@@ -1,7 +1,7 @@
 package com.beloved.system.service.impl;
 
 import com.beloved.common.model.dto.system.UserInfoDto;
-import com.beloved.common.model.entity.SysUser;
+import com.beloved.common.model.entity.system.SysUser;
 import com.beloved.system.mapper.SysUserMapper;
 import com.beloved.system.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;

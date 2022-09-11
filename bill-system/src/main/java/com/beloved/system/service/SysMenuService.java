@@ -1,7 +1,7 @@
 package com.beloved.system.service;
 
 import com.beloved.common.model.dto.system.MenuDto;
-import com.beloved.common.model.entity.SysMenu;
+import com.beloved.common.model.entity.system.SysMenu;
 
 import java.util.List;
 

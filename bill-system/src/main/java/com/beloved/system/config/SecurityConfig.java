@@ -40,6 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
    private LogoutSuccessHandlerImpl logoutSuccessHandler;
 
     private static final String[] whiteList = {
+            "/test/*",
             "/auth/captcha"
     };
     
