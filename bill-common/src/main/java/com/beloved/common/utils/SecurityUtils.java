@@ -1,8 +1,8 @@
-package com.beloved.system.utils;
+package com.beloved.common.utils;
 
 import com.beloved.common.enums.ErrorCode;
 import com.beloved.common.exception.ServiceException;
-import com.beloved.system.security.dto.LoginUser;
+import com.beloved.common.model.dto.security.LoginUser;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 

@@ -1,4 +1,4 @@
-package com.beloved.system.security.dto;
+package com.beloved.common.model.dto.security;
 
 import com.beloved.common.model.dto.system.UserInfoDto;
 import com.beloved.common.utils.BooleanUtils;

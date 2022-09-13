@@ -1,4 +1,4 @@
-package com.beloved.system.config;
+package com.beloved.system.security.config;
 
 import com.beloved.system.security.filter.LoginFilter;
 import com.beloved.system.security.filter.TokenFilter;

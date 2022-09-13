@@ -1,7 +1,7 @@
 package com.beloved.system.security.service;
 
 import com.beloved.common.model.dto.system.UserInfoDto;
-import com.beloved.system.security.dto.LoginUser;
+import com.beloved.common.model.dto.security.LoginUser;
 import com.beloved.system.service.SysUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

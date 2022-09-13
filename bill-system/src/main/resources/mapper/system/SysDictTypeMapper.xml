@@ -13,7 +13,7 @@
     </select>
     
     <insert id="add" useGeneratedKeys="true">
-        insert into sys_dict_type(dict_name, dict_type, state)
-        values (#{dictName}, #{dictType}, #{state})
+        insert into sys_dict_type(dict_name, dict_type, state, remark, create_by, create_time, update_by, update_time)
+        values (#{dictName}, #{dictType}, #{state}, #{remark}, #{createBy}, #{createTime}, #{updateBy}, #{updateTime})
     </insert>
 </mapper>
