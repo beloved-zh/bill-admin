@@ -1,11 +1,11 @@
 package com.beloved.system.security.filter;
 
-import com.alibaba.fastjson2.JSONObject;
 import com.beloved.common.enums.ErrorCode;
 import com.beloved.common.exception.MyAuthenticationException;
+import com.beloved.common.utils.JsonUtils;
 import com.beloved.core.config.BillConfig;
 import com.beloved.system.service.CaptchaService;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -31,6 +31,9 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     
     @Autowired
     private BillConfig billConfig;
+
+    @Autowired
+    private JsonUtils jsonUtils;
     
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
@@ -43,24 +46,22 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         // 判断是否是 json 格式请求参数
         if (request.getContentType().equalsIgnoreCase(MediaType.APPLICATION_JSON_VALUE) || request.getContentType().equalsIgnoreCase(MediaType.APPLICATION_JSON_UTF8_VALUE)) {
             // 获取请求中参数
-            JSONObject userinfo = new JSONObject();
-            
+            ObjectNode userinfo = null;
             try {
-                userinfo = new ObjectMapper().readValue(request.getInputStream(), JSONObject.class);
-                log.debug("userinfo：{}", userinfo);
-            } catch (IOException e){
+                userinfo = jsonUtils.parseObject(request.getInputStream(), ObjectNode.class);
+            } catch (IOException e) {
                 log.error(e.getMessage(), e);
             }
-
+            
             if (billConfig.getCaptchaOnOff()) {
-                String uuid = userinfo.getString("uuid");
-                String code = userinfo.getString("code");
+                String uuid = userinfo.get("uuid").asText();
+                String code = userinfo.get("code").asText();
                 captchaService.verify(uuid, code);
             }
             
             // 调用父类中的获取字段定义 可复用 后期可通过注入改变参数名
-            String username = userinfo.getString(getUsernameParameter());
-            String password = userinfo.getString(getPasswordParameter());
+            String username = userinfo.get(getUsernameParameter()).asText();
+            String password = userinfo.get(getPasswordParameter()).asText();
 
             UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(username, password);
             setDetails(request, authRequest);

@@ -17,8 +17,8 @@ import org.apache.ibatis.plugin.Signature;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
+import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 import java.util.stream.Collectors;
@@ -88,7 +88,7 @@ public class MybatisAutoFillInterceptor implements Interceptor {
             }
         }
         if (StringUtils.endsWith(field.getName(), "createTime")) {
-            ReflectUtil.setFieldValue(object, field, new Date());
+            ReflectUtil.setFieldValue(object, field, LocalDateTime.now());
         }
     }
 
@@ -101,7 +101,7 @@ public class MybatisAutoFillInterceptor implements Interceptor {
             }
         }
         if (StringUtils.endsWith(field.getName(), "updateTime")) {
-            ReflectUtil.setFieldValue(object, field, new Date());
+            ReflectUtil.setFieldValue(object, field, LocalDateTime.now());
         }
     }
 }

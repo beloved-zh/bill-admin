@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.beloved.system.mapper.SysDictDataMapper">
-
+    
+    <select id="queryListByDictId" resultType="sysDictData">
+        select * 
+        from sys_dict_data
+        where state = 1 
+        and dict_id = #{dictId}
+        order by dict_sort
+    </select>
 </mapper>

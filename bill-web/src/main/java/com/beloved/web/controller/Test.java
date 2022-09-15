@@ -1,6 +1,5 @@
 package com.beloved.web.controller;
 
-import com.beloved.common.enums.StateEnum;
 import com.beloved.common.model.entity.system.SysDictType;
 import com.beloved.system.mapper.SysDictTypeMapper;
 import com.beloved.system.service.SysMenuService;
@@ -28,19 +27,9 @@ public class Test {
     private SysDictTypeMapper sysDictTypeMapper;
     
     @GetMapping("/data")
-    public SysDictType getData() {
+    public String getData() {
         SysDictType sysDictType = sysDictTypeMapper.querySysDictTypeByType("status");
-        return sysDictType;
+        return "sysDictType";
     }
-
-    @GetMapping("/add")
-    public String add() {
-        SysDictType sysDictType = new SysDictType();
-        sysDictType.setDictName("测试");
-        sysDictType.setDictType("test");
-        sysDictType.setState(StateEnum.STOP);
-        Long id = sysDictTypeMapper.add(sysDictType);
-        log.debug("id：{}", id);
-        return "成功";
-    }
+    
 }

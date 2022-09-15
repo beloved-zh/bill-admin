@@ -1,6 +1,9 @@
 package com.beloved.system.mapper;
 
+import com.beloved.common.model.entity.system.SysDictData;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * @Author: Beloved
@@ -9,4 +12,7 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface SysDictDataMapper {
+
+    List<SysDictData> queryListByDictId(Long dictId);
+    
 }

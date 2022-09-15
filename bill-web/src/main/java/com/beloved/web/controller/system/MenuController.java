@@ -5,6 +5,7 @@ import com.beloved.common.model.dto.system.MenuDto;
 import com.beloved.common.model.request.system.MenuRequest;
 import com.beloved.system.service.SysMenuService;
 import com.beloved.web.controller.common.BaseController;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,5 +32,11 @@ public class MenuController extends BaseController {
     @PostMapping("/getMenuTree")
     public List<MenuDto> getMenuTree(@RequestBody MenuRequest menuRequest) {
         return menuService.queryMenuTree(menuConverter.requestToMenu(menuRequest));
+    }
+
+    @PostMapping("/getList")
+    public PageInfo<MenuDto> getList(@RequestBody MenuRequest menuRequest) {
+        PageInfo<MenuDto> pageInfo = startPage(menuRequest, () -> menuService.queryMenuList(menuConverter.requestToMenu(menuRequest)));
+        return pageInfo;
     }
 }

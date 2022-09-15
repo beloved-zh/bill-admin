@@ -1,5 +1,6 @@
 package com.beloved.system.mapper;
 
+import com.beloved.common.model.dto.system.SysDictTypeDto;
 import com.beloved.common.model.entity.system.SysDictType;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -12,7 +13,6 @@ import org.apache.ibatis.annotations.Mapper;
 public interface SysDictTypeMapper {
     
     SysDictType querySysDictTypeByType(String dictType);
-    
-//    SysDictTypeDto querySysDictTypeDataByType(String dictType);
-    Long add(SysDictType sysDictType);
+
+    SysDictTypeDto querySysDictTypeDataByType(String dictType);
 }

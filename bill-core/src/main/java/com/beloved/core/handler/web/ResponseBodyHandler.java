@@ -4,10 +4,10 @@ import com.beloved.common.annotation.RawData;
 import com.beloved.common.enums.ErrorCode;
 import com.beloved.common.exception.ServiceException;
 import com.beloved.common.model.vo.ResultVo;
+import com.beloved.common.utils.JsonUtils;
 import com.beloved.common.utils.ObjectUtils;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -26,6 +26,9 @@ import java.util.LinkedHashMap;
 @Slf4j
 @RestControllerAdvice
 public class ResponseBodyHandler implements ResponseBodyAdvice<Object> {
+
+    @Autowired
+    private JsonUtils jsonUtils;
     
     @Override
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
@@ -37,13 +40,7 @@ public class ResponseBodyHandler implements ResponseBodyAdvice<Object> {
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
         // String类型不能直接包装
         if (returnType.getGenericParameterType().equals(String.class)) {
-            ObjectMapper objectMapper = new ObjectMapper();
-            try {
-                // 将数据包装在ResultVo里后转换为json串进行返回
-                return objectMapper.writeValueAsString(new ResultVo<>(body));
-            } catch (JsonProcessingException e) {
-                log.error(e.getMessage());
-            }
+            return jsonUtils.toJSONString(new ResultVo<>(body));
         }
         // 解决404、500等 spring 没有捕获的异常问题
         if (body instanceof LinkedHashMap) {

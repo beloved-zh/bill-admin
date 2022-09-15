@@ -7,13 +7,14 @@
         where state = 1 and dict_type = #{dictType}
     </select>
 
-    <select id="querySysDictTypeDataByType" resultType="sysDictType">
+    <resultMap id="sysDictTypeDto" type="sysDictTypeDto">
+        <collection property="dictDataList" ofType="sysDictData"
+                    select="com.beloved.system.mapper.SysDictDataMapper.queryListByDictId"
+                    column="{dictId = dict_id}"/>
+    </resultMap>
+    <select id="querySysDictTypeDataByType" resultMap="sysDictTypeDto">
         select * from sys_dict_type
         where state = 1 and dict_type = #{dictType}
     </select>
     
-    <insert id="add" useGeneratedKeys="true">
-        insert into sys_dict_type(dict_name, dict_type, state, remark, create_by, create_time, update_by, update_time)
-        values (#{dictName}, #{dictType}, #{state}, #{remark}, #{createBy}, #{createTime}, #{updateBy}, #{updateTime})
-    </insert>
 </mapper>

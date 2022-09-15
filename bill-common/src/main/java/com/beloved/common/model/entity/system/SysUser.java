@@ -4,6 +4,7 @@ import com.beloved.common.enums.GenderEnum;
 import com.beloved.common.model.entity.BaseEntity;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -67,6 +68,6 @@ public class SysUser extends BaseEntity {
     /**
      * 最后登录时间
      */
-    private Date loginDate;
+    private LocalDateTime loginDate;
 
 }

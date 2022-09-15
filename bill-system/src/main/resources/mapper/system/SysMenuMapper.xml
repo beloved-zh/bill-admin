@@ -15,7 +15,8 @@
     </select>
     
     <select id="queryMenuList" resultType="sysMenu">
-        select * from sys_menu
+        select * 
+        from sys_menu
         <where>
             <if test="menuName != null and menuName != ''">
                 and menu_name = #{menuName}

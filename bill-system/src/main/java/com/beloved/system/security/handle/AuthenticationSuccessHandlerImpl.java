@@ -1,13 +1,13 @@
 package com.beloved.system.security.handle;
 
-import com.alibaba.fastjson2.JSON;
 import com.beloved.common.converter.UserConverter;
+import com.beloved.common.model.dto.security.LoginUser;
+import com.beloved.common.model.dto.security.TokenConfig;
 import com.beloved.common.model.entity.system.SysUser;
 import com.beloved.common.model.vo.ResultVo;
 import com.beloved.common.model.vo.system.TokenVo;
+import com.beloved.common.utils.JsonUtils;
 import com.beloved.common.utils.ServletUtils;
-import com.beloved.common.model.dto.security.LoginUser;
-import com.beloved.common.model.dto.security.TokenConfig;
 import com.beloved.system.security.service.TokenService;
 import com.beloved.system.service.SysUserService;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +20,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * 自定义认证成功处理器
@@ -30,6 +30,9 @@ import java.util.Date;
 @Slf4j
 @Component
 public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHandler {
+
+    @Autowired
+    private JsonUtils jsonUtils;
     
     @Autowired
     private TokenService tokenService;
@@ -52,14 +55,14 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 
         SysUser user = userConverter.toSysUser(loginUser.getUser());
         user.setLoginIp(ServletUtils.getClientIP(request));
-        user.setLoginDate(new Date());
+        user.setLoginDate(LocalDateTime.now());
         userService.updateUser(user);
         
         TokenVo tokenDto = new TokenVo();
         tokenDto.setHeader(tokenConfig.getHeader());
         tokenDto.setTokenPrefix(tokenConfig.getTokenPrefix());
         tokenDto.setToken(token);
-        ServletUtils.writeJson(response, JSON.toJSONString(new ResultVo<TokenVo>(tokenDto)));
+        ServletUtils.writeJson(response, jsonUtils.toJSONString(new ResultVo<TokenVo>(tokenDto)));
     }
 
 }

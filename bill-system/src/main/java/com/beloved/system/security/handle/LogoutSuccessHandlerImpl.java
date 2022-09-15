@@ -1,12 +1,12 @@
 package com.beloved.system.security.handle;
 
-import com.alibaba.fastjson2.JSON;
 import com.beloved.common.enums.ErrorCode;
 import com.beloved.common.enums.ResultCode;
+import com.beloved.common.model.dto.security.LoginUser;
 import com.beloved.common.model.vo.ResultVo;
+import com.beloved.common.utils.JsonUtils;
 import com.beloved.common.utils.ObjectUtils;
 import com.beloved.common.utils.ServletUtils;
-import com.beloved.common.model.dto.security.LoginUser;
 import com.beloved.system.security.service.TokenService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +31,9 @@ public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
 
     @Autowired
     private TokenService tokenService;
+
+    @Autowired
+    private JsonUtils jsonUtils;
     
     /**
      * 不经过 TokenFilter 无法设置用户信息，所以 authentication 为空，需要从 token中获取用户信息
@@ -50,7 +53,7 @@ public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
         // 删除用户缓存记录
         tokenService.clearLoginUser(user.getLonginId());
         log.debug("用户：{} 注销成功", user.getUsername());
-        ServletUtils.writeJson(response, JSON.toJSONString(new ResultVo<>(ResultCode.LOGOUT_SUCCESS)));
+        ServletUtils.writeJson(response, jsonUtils.toJSONString(new ResultVo<>(ResultCode.LOGOUT_SUCCESS)));
     }
     
 }

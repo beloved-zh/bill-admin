@@ -1,6 +1,10 @@
 package com.beloved.web.controller.common;
 
+import com.beloved.common.model.request.common.PageParams;
 import com.beloved.common.utils.DateUtils;
+import com.github.pagehelper.ISelect;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -11,7 +15,7 @@ import java.util.Date;
 /**
  * @Author: Beloved
  * @CreateTime: 2022-07-27 14:33
- * @Description: 通用处理
+ * @Description: 基础处理
  */
 @Slf4j
 public class BaseController {
@@ -30,4 +34,12 @@ public class BaseController {
             }
         });
     }
+
+    /**
+     * 设置请求分页数据
+     */
+    protected <T, P extends PageParams> PageInfo<T> startPage(P params, ISelect select) {
+        PageInfo<T> pageInfo = PageHelper.startPage(params).doSelectPageInfo(select);
+        return pageInfo;
+    } 
 }
