@@ -1,6 +1,7 @@
 package com.beloved.common.enums;
 
 import com.beloved.common.service.BaseEnum;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
 
 /**
@@ -14,6 +15,7 @@ public enum WhetherEnum implements BaseEnum<Boolean, Integer> {
     YES(true, 1),
     NO(false, 0);
 
+    @JsonValue
     private Boolean label;
     private Integer value;
 
