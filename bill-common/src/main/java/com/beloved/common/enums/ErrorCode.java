@@ -19,6 +19,7 @@ public enum ErrorCode implements StatusCode {
     CAPTCHA_EXPIRED(1005, "验证码已过期"),
     CAPTCHA_FAIL(1006, "验证失败"),
     GET_USER_FAIL(1007, "获取用户信息失败"),
+    VALIDATE_FAILED(1008, "参数校验失败"),
     ;
     
     private Integer code;

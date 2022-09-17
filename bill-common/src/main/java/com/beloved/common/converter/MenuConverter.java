@@ -2,12 +2,12 @@ package com.beloved.common.converter;
 
 import com.beloved.common.enums.MenuTypeEnum;
 import com.beloved.common.enums.StateEnum;
+import com.beloved.common.enums.WhetherEnum;
 import com.beloved.common.model.dto.system.MenuDto;
 import com.beloved.common.model.entity.system.SysMenu;
 import com.beloved.common.model.request.system.MenuRequest;
 import com.beloved.common.model.vo.system.MenuTreeVo;
 import com.beloved.common.service.BaseEnum;
-import com.beloved.common.utils.BooleanUtils;
 import com.beloved.common.utils.StringUtils;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -24,7 +24,7 @@ import java.util.List;
     BaseEnum.class,
     StateEnum.class,
     MenuTypeEnum.class,
-    BooleanUtils.class,
+    WhetherEnum.class,
     StringUtils.class
 })
 public interface MenuConverter {
@@ -49,6 +49,10 @@ public interface MenuConverter {
     List<MenuTreeVo> toArraytoMenuTreeVo(List<MenuDto> menuList);
 
     @Mappings({
+        @Mapping(target = "hasCache", expression = "java(BaseEnum.getEnumByValue(request.getHasCache(), WhetherEnum.class))"),
+        @Mapping(target = "hidden", expression = "java(BaseEnum.getEnumByValue(request.getHidden(), WhetherEnum.class))"),
+        @Mapping(target = "fixed", expression = "java(BaseEnum.getEnumByValue(request.getFixed(), WhetherEnum.class))"),
+        @Mapping(target = "menuType", expression = "java(BaseEnum.getEnumByValue(request.getMenuType(), MenuTypeEnum.class))"),
         @Mapping(target = "state", expression = "java(BaseEnum.getEnumByValue(request.getState(), StateEnum.class))"),
     })
     SysMenu requestToMenu(MenuRequest request);
