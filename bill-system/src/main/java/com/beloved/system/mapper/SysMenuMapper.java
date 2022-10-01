@@ -18,6 +18,15 @@ public interface SysMenuMapper {
 
     List<SysMenu> queryMenuListByUserId(Long userId);
     
+    SysMenu queryMenuById(Long id);
+
+    List<SysMenu> queryChildrenMenuByParentId(Long parentId);
+    
     List<SysMenu> queryMenuList(SysMenu menu);
     
+    Long saveMenu(SysMenu menu);
+
+    Long editMenu(SysMenu menu);
+
+    void removeMenu(Long menuId);
 }

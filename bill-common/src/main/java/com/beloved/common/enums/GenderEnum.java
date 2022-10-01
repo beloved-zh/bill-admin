@@ -1,7 +1,6 @@
 package com.beloved.common.enums;
 
 import com.beloved.common.service.BaseEnum;
-import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
 
 /**
@@ -16,7 +15,6 @@ public enum GenderEnum implements BaseEnum<String, Integer> {
     FEMALE("女", 1),
     UNKNOWN("未知", 2);
 
-    @JsonValue
     private String label;
     private Integer value;
 

@@ -21,4 +21,9 @@ public interface SysMenuService {
 
     List<MenuDto> queryMenuTree(SysMenu menu);
     
+    Long saveMenu(SysMenu menu);
+
+    Long editMenu(SysMenu menu);
+
+    void removeMenu(Long menuId);
 }

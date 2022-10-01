@@ -1,4 +1,4 @@
-package com.beloved.common.valid.group;
+package com.beloved.common.valid.group.crud;
 
 import javax.validation.groups.Default;
 

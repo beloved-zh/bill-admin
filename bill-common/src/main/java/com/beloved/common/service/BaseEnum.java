@@ -1,6 +1,7 @@
 package com.beloved.common.service;
 
 import com.beloved.common.utils.ObjectUtils;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -13,7 +14,8 @@ import java.util.Objects;
 public interface BaseEnum<K, V> {
 
     K getLabel();
-    
+
+    @JsonValue
     V getValue();
     
     static <E extends Enum<E> & BaseEnum> E getEnumByValue(Object value, Class<E> enumClassType) {

@@ -1,7 +1,6 @@
 package com.beloved.common.enums;
 
 import com.beloved.common.service.BaseEnum;
-import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
 
 /**
@@ -15,7 +14,6 @@ public enum StateEnum implements BaseEnum<String, Integer> {
     NORMAL("正常", 1),
     STOP("停用", 0);
     
-    @JsonValue
     private String label;
     private Integer value;
 

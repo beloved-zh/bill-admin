@@ -1,15 +1,20 @@
 package com.beloved.system.service.impl;
 
 import com.beloved.common.converter.MenuConverter;
+import com.beloved.common.enums.MenuTypeEnum;
+import com.beloved.common.exception.ServiceException;
 import com.beloved.common.model.dto.system.MenuDto;
 import com.beloved.common.model.entity.system.SysMenu;
 import com.beloved.system.mapper.SysMenuMapper;
+import com.beloved.system.mapper.SysRoleMenuMapper;
 import com.beloved.system.service.SysMenuService;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -25,6 +30,9 @@ public class SysMenuServiceImpl implements SysMenuService {
 
     @Autowired
     private SysMenuMapper menuMapper;
+    
+    @Autowired
+    private SysRoleMenuMapper roleMenuMapper;
     
     @Autowired
     private MenuConverter menuConverter;
@@ -69,5 +77,52 @@ public class SysMenuServiceImpl implements SysMenuService {
         List<MenuDto> menuDtoList = menuConverter.toArrayDto(menuMapper.queryMenuList(menu));
 
         return this.getTopLevelMenuTree(menuDtoList);
+    }
+
+    @Override
+    public Long saveMenu(SysMenu menu) {
+        
+        if (menu.getParentId() == 0 && Objects.equals(menu.getMenuType(), MenuTypeEnum.BUTTON)) {
+            throw new ServiceException("主菜单不能添加按钮");    
+        }
+
+        if (menu.getParentId() > 0) {
+            SysMenu parentMenu = menuMapper.queryMenuById(menu.getParentId());
+            if (Objects.equals(parentMenu.getMenuType(), MenuTypeEnum.DIR) && Objects.equals(menu.getMenuType(), MenuTypeEnum.BUTTON)) {
+                throw new ServiceException("目录下不能添加按钮");
+            }
+            if (Objects.equals(parentMenu.getMenuType(), MenuTypeEnum.MENU) && Objects.equals(menu.getMenuType(), MenuTypeEnum.DIR)) {
+                throw new ServiceException("菜单下不能添加目录");
+            }
+            if (Objects.equals(parentMenu.getMenuType(), MenuTypeEnum.BUTTON)) {
+                throw new ServiceException("按钮下不能添加子元素");
+            }
+        }
+        
+        menuMapper.saveMenu(menu);
+        
+        return menu.getMenuId();
+    }
+
+    @Override
+    public Long editMenu(SysMenu menu) {
+        
+        menuMapper.editMenu(menu);
+
+        return menu.getMenuId();
+    }
+
+    @Override
+    public void removeMenu(Long menuId) {
+
+        List<SysMenu> childrenMenu = menuMapper.queryChildrenMenuByParentId(menuId);
+
+        if (CollectionUtils.isNotEmpty(childrenMenu)) {
+            throw new ServiceException("存在子菜单，不允许删除");
+        }
+
+        roleMenuMapper.removeByMenuId(menuId);
+        
+        menuMapper.removeMenu(menuId);
     }
 }

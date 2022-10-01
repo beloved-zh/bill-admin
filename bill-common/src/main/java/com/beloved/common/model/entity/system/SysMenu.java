@@ -1,7 +1,7 @@
 package com.beloved.common.model.entity.system;
 
+import com.beloved.common.enums.BooleanEnum;
 import com.beloved.common.enums.MenuTypeEnum;
-import com.beloved.common.enums.WhetherEnum;
 import com.beloved.common.model.entity.BaseEntity;
 import lombok.Data;
 
@@ -24,6 +24,11 @@ public class SysMenu extends BaseEntity {
     private Long menuId;
 
     /**
+     * 菜单标题
+     */
+    private String menuTitle;
+    
+    /**
      * 菜单名称
      */
     private String menuName;
@@ -39,45 +44,38 @@ public class SysMenu extends BaseEntity {
     private Integer orderNum;
 
     /**
-     * 路由地址
+     * 路由地址，http开头默认为外链
      */
     private String path;
 
     /**
-     * 组件路径
+     * 组件路径，http开头默认为iframe
      */
     private String component;
-    
-    /**
-     * iframe 标签地址
-     */
-    private String iframePath;
 
     /**
      * 是否缓存（0否 1是）
      */
-    private WhetherEnum hasCache;
+    private BooleanEnum hasCache;
 
     /**
      * 是否隐藏（0否 1是）
      */
-    private WhetherEnum hidden;
+    private BooleanEnum hidden;
 
     /**
      * 是否固定tag（0否 1是）
      */
-    private WhetherEnum fixed;
+    private BooleanEnum fixed;
 
     /**
      * 菜单类型（D目录 M菜单 B按钮）
      */
     private MenuTypeEnum menuType;
     
-
     /**
      * 菜单图标
      */
     private String icon;
-
-
+    
 }

@@ -25,6 +25,7 @@
         <mysql.version>8.0.25</mysql.version>
         <lombok.version>1.18.24</lombok.version>
         <commons-lang3.version>3.12.0</commons-lang3.version>
+        <commons-collections4.version>4.4</commons-collections4.version>
         <jwt.version>0.9.1</jwt.version>
         <hutool.version>5.8.4</hutool.version>
         <mapstruct.version>1.5.2.Final</mapstruct.version>
@@ -79,6 +80,12 @@
                 <artifactId>commons-lang3</artifactId>
                 <version>${commons-lang3.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-collections4</artifactId>
+                <version>${commons-collections4.version}</version>
+            </dependency>
+
 
             <!-- hutool -->
             <!-- 核心，包括Bean操作、日期、各种Util等 -->

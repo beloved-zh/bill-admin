@@ -1,7 +1,6 @@
 package com.beloved.common.enums;
 
 import com.beloved.common.service.BaseEnum;
-import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
 
 /**
@@ -15,8 +14,7 @@ public enum MenuTypeEnum implements BaseEnum<String, String> {
     DIR("目录", "D"),
     MENU("菜单", "M"),
     BUTTON("按钮", "B");
-    
-    @JsonValue
+
     private String label;
     private String value;
 

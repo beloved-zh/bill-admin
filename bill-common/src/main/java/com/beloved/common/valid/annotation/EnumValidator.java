@@ -54,11 +54,11 @@ public @interface EnumValidator {
         @Override
         public boolean isValid(Object value, ConstraintValidatorContext context) {
             if (ObjectUtils.isEmpty(value)) return false;
-
+            
             BaseEnum[] baseEnums = annotation.enumType().getEnumConstants();
 
             BaseEnum baseEnum = Arrays.stream(baseEnums)
-                    .filter(e -> Objects.equals(e.getLabel(), value))
+                    .filter(e -> Objects.equals(e.getValue(), value))
                     .findFirst()
                     .orElse(null);
 

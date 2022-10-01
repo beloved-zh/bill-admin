@@ -20,7 +20,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 
     <typeHandlers>
         <typeHandler handler="com.beloved.core.handler.mybatis.EnumTypeHandler" javaType="com.beloved.common.enums.StateEnum" />
-        <typeHandler handler="com.beloved.core.handler.mybatis.EnumTypeHandler" javaType="com.beloved.common.enums.WhetherEnum" />
+        <typeHandler handler="com.beloved.core.handler.mybatis.EnumTypeHandler" javaType="com.beloved.common.enums.BooleanEnum" />
         <typeHandler handler="com.beloved.core.handler.mybatis.EnumTypeHandler" javaType="com.beloved.common.enums.GenderEnum" />
         <typeHandler handler="com.beloved.core.handler.mybatis.EnumTypeHandler" javaType="com.beloved.common.enums.MenuTypeEnum" />
     </typeHandlers>

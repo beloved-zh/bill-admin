@@ -82,7 +82,7 @@ public class MybatisAutoFillInterceptor implements Interceptor {
     private void insertHandler(Object object, Field field) {
         if (StringUtils.equals(field.getName(), "createBy")) {
             try {
-                ReflectUtil.setFieldValue(object, field, SecurityUtils.getUserId());
+                ReflectUtil.setFieldValue(object, field, Long.toString(SecurityUtils.getUserId()));
             } catch (ServiceException e) {
                 ReflectUtil.setFieldValue(object, field, DEFAULT_USER);
             }
@@ -95,7 +95,7 @@ public class MybatisAutoFillInterceptor implements Interceptor {
     private void updateHandler(Object object, Field field) {
         if (StringUtils.equals(field.getName(), "updateBy")) {
             try {
-                ReflectUtil.setFieldValue(object, field, SecurityUtils.getUserId());
+                ReflectUtil.setFieldValue(object, field, Long.toString(SecurityUtils.getUserId()));
             } catch (ServiceException e) {
                 ReflectUtil.setFieldValue(object, field, DEFAULT_USER);
             }

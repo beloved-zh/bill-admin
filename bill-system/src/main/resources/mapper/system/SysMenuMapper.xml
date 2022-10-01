@@ -1,9 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.beloved.system.mapper.SysMenuMapper">
+    
+    <sql id="BASE_COLUMNS">
+        ${alias}.menu_id,
+        ${alias}.parent_id,
+        ${alias}.menu_name,
+        ${alias}.menu_title,
+        ${alias}.icon,
+        ${alias}.path,
+        ${alias}.component,
+        ${alias}.order_num,
+        ${alias}.menu_type,
+        ${alias}.fixed,
+        ${alias}.has_cache,
+        ${alias}.hidden,
+        ${alias}.state,
+        ${alias}.create_by,
+        ${alias}.create_time,
+        ${alias}.update_by,
+        ${alias}.update_time,
+        ${alias}.remark
+    </sql>
 
+    <sql id="SEARCH">
+        <if test="menuId != null">${alias}.menu_id = #{menuId}</if>
+        <if test="parentId != null">${alias}.parent_id = #{parentId}</if>
+        <if test="menuName != null and menuName != ''">${alias}.menu_name = #{menuName}</if>
+        <if test="menuTitle != null and menuTitle != ''">${alias}.menu_title = #{menuTitle}</if>
+        <if test="icon != null and icon != ''">${alias}.icon = #{icon}</if>
+        <if test="path != null and path != ''">${alias}.path = #{path}</if>
+        <if test="component != null and component != ''">${alias}.component = #{component}</if>
+        <if test="orderNum != null">${alias}.order_num = #{orderNum}</if>
+        <if test="menuType != null">${alias}.menu_type = #{menuType}</if>
+        <if test="fixed != null">${alias}.fixed = #{fixed}</if>
+        <if test="hasCache != null">${alias}.has_cache = #{hasCache}</if>
+        <if test="hidden != null">${alias}.hidden = #{hidden}</if>
+        <if test="state != null">${alias}.state = #{state}</if>
+        <if test="createBy != null and createBy != ''">${alias}.create_by = #{createBy}</if>
+        <if test="createTime != null and createTime != ''">${alias}.create_time = #{createTime}</if>
+        <if test="updateBy != null and updateBy != ''">${alias}.update_by = #{updateBy}</if>
+        <if test="updateTime != null and updateTime != ''">${alias}.update_time = #{updateTime}</if>
+        <if test="remark != null and remark != ''">${alias}.remark = #{remark}</if>
+    </sql>
+    
     <select id="queryMenuListByUserId" resultType="sysMenu">
-        select sm.*
+        select <include refid="BASE_COLUMNS"><property name="alias" value="sm"/></include>
         from sys_menu sm
         left join sys_role_menu srm on sm.menu_id = srm.menu_id
         left join sys_role sr on srm.role_id = sr.role_id
@@ -15,16 +57,79 @@
     </select>
     
     <select id="queryMenuList" resultType="sysMenu">
-        select * 
-        from sys_menu
+        select <include refid="BASE_COLUMNS"><property name="alias" value="sm"/></include>
+        from sys_menu sm
         <where>
-            <if test="menuName != null and menuName != ''">
-                and menu_name = #{menuName}
-            </if>
-            <if test="state != null">
-                and state = #{state}
-            </if>
+            <include refid="SEARCH"><property name="alias" value="sm"/></include>
         </where>
-        order by parent_id, order_num
+        order by sm.parent_id, sm.order_num
     </select>
+
+    <select id="queryMenuById" resultType="sysMenu">
+        select <include refid="BASE_COLUMNS"><property name="alias" value="sm"/></include>
+        from sys_menu sm
+        where sm.menu_id = #{id}
+    </select>
+
+    <select id="queryChildrenMenuByParentId" resultType="sysMenu">
+        select <include refid="BASE_COLUMNS"><property name="alias" value="sm"/></include>
+        from sys_menu sm
+        where sm.parent_id = #{parentId}
+    </select>
+    
+    <insert id="saveMenu" parameterType="sysMenu" keyProperty="menuId" keyColumn="menu_id" useGeneratedKeys="true" >
+        insert into sys_menu(
+            <if test="parentId != null">parent_id,</if>
+            <if test="menuName != null and menuName != ''">menu_name,</if>
+            <if test="menuTitle != null and menuTitle != ''">menu_title,</if>
+            <if test="icon != null and icon != ''">icon,</if>
+            <if test="path != null and path != ''">path,</if>
+            <if test="component != null and component != ''">component,</if>
+            <if test="orderNum != null">order_num,</if>
+            <if test="menuType != null">menu_type,</if>
+            <if test="fixed != null">fixed,</if>
+            <if test="hasCache != null">has_cache,</if>
+            <if test="hidden != null">hidden,</if>
+            <if test="state != null">state,</if>
+            create_by,create_time,update_by,update_time,remark
+        ) values (
+            <if test="parentId != null">#{parentId},</if>
+            <if test="menuName != null and menuName != ''">#{menuName},</if>
+            <if test="menuTitle != null and menuTitle != ''">#{menuTitle},</if>
+            <if test="icon != null and icon != ''">#{icon},</if>
+            <if test="path != null and path != ''">#{path},</if>
+            <if test="component != null and component != ''">#{component},</if>
+            <if test="orderNum != null">#{orderNum},</if>
+            <if test="menuType != null">#{menuType},</if>
+            <if test="fixed != null">#{fixed},</if>
+            <if test="hasCache != null">#{hasCache},</if>
+            <if test="hidden != null">#{hidden},</if>
+            <if test="state != null">#{state},</if>
+            #{createBy},#{createTime},#{updateBy},#{updateTime},#{remark}   
+        )
+    </insert>
+    
+    <update id="editMenu" parameterType="sysMenu">
+        update sys_menu
+        <set>
+            <if test="menuName != null and menuName != ''">menu_name = #{menuName},</if>
+            <if test="menuTitle != null and menuTitle != ''">menu_title = #{menuTitle},</if>
+            <if test="icon != null and icon != ''">icon = #{icon},</if>
+            <if test="path != null and path != ''">path = #{path},</if>
+            <if test="component != null and component != ''">component = #{component},</if>
+            <if test="orderNum != null">order_num = #{orderNum},</if>
+            <if test="fixed != null">fixed = #{fixed},</if>
+            <if test="hasCache != null">has_cache = #{hasCache},</if>
+            <if test="hidden != null">hidden = #{hidden},</if>
+            <if test="state != null">state = #{state},</if>
+            <if test="remark != null and remark != ''">remark = #{remark},</if>
+            update_by = #{updateBy},
+            update_time = #{updateTime}
+        </set>
+        where menu_id = #{menuId}
+    </update>
+    
+    <delete id="removeMenu" parameterType="long">
+        delete from sys_menu where menu_id = #{menuId}
+    </delete>
 </mapper>
