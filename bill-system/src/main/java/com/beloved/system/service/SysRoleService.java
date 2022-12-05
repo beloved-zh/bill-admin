@@ -1,5 +1,9 @@
 package com.beloved.system.service;
 
+import com.beloved.common.model.entity.system.SysRole;
+
+import java.util.List;
+
 /**
  * <p>
  * 角色信息表 服务类
@@ -10,4 +14,5 @@ package com.beloved.system.service;
  */
 public interface SysRoleService {
 
+    List<SysRole> queryList(SysRole role);
 }

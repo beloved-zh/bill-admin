@@ -1,6 +1,9 @@
 package com.beloved.system.mapper;
 
+import com.beloved.common.model.entity.system.SysRole;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,6 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface SysRoleMapper {
 
+    List<SysRole> queryList(SysRole role);
+    
 }

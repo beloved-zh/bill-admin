@@ -1,5 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.beloved.system.mapper.SysRoleMapper">
+    
+    <sql id="BASE_COLUMNS">
+        ${alias}.role_id,
+        ${alias}.role_name,
+        ${alias}.role_sort,
+        ${alias}.state,
+        ${alias}.remark,
+        ${alias}.create_by,
+        ${alias}.create_time,
+        ${alias}.update_by,
+        ${alias}.update_time
+    </sql>
 
+    <sql id="SEARCH">
+        <if test="roleId != null">${alias}.role_id = #{roleId}</if>
+        <if test="roleName != null and roleName != ''">${alias}.role_name = #{roleName}</if>
+        <if test="state != null">${alias}.state = #{state}</if>
+        <if test="createBy != null and createBy != ''">${alias}.create_by = #{createBy}</if>
+        <if test="createTime != null and createTime != ''">${alias}.create_time = #{createTime}</if>
+        <if test="updateBy != null and updateBy != ''">${alias}.update_by = #{updateBy}</if>
+        <if test="updateTime != null and updateTime != ''">${alias}.update_time = #{updateTime}</if>
+        <if test="remark != null and remark != ''">${alias}.remark = #{remark}</if>
+    </sql>
+    
+    <select id="queryList" resultType="sysRole">
+        select <include refid="BASE_COLUMNS"><property name="alias" value="r"/></include>
+        from sys_role r
+        <where>
+            <include refid="SEARCH"><property name="alias" value="r"/></include>
+        </where>
+        order by r.role_sort
+    </select>
 </mapper>

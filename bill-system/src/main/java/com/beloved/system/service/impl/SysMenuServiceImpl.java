@@ -11,6 +11,7 @@ import com.beloved.system.service.SysMenuService;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Comparator;
 import java.util.List;
@@ -112,6 +113,7 @@ public class SysMenuServiceImpl implements SysMenuService {
         return menu.getMenuId();
     }
 
+    @Transactional
     @Override
     public void removeMenu(Long menuId) {
 
