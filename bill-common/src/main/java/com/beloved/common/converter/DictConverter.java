@@ -2,7 +2,9 @@ package com.beloved.common.converter;
 
 import com.beloved.common.enums.MenuTypeEnum;
 import com.beloved.common.enums.StateEnum;
+import com.beloved.common.model.dto.system.SysDictDto;
 import com.beloved.common.model.entity.system.SysDictData;
+import com.beloved.common.model.request.system.DictRequest;
 import com.beloved.common.model.vo.common.OptionVo;
 import com.beloved.common.service.BaseEnum;
 import com.beloved.common.utils.BooleanUtils;
@@ -34,4 +36,6 @@ public interface DictConverter {
     OptionVo dictDataToOption(SysDictData dictData);
 
     List<OptionVo> dictDataToOptionList(List<SysDictData> dictDataList);
+    
+    SysDictDto requestToDto(DictRequest request);
 }

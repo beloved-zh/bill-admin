@@ -24,9 +24,9 @@ public interface SysMenuMapper {
     
     List<SysMenu> queryMenuList(SysMenu menu);
     
-    Long saveMenu(SysMenu menu);
+    long saveMenu(SysMenu menu);
 
-    Long editMenu(SysMenu menu);
+    long editMenu(SysMenu menu);
 
     void removeMenu(Long menuId);
 }

@@ -12,13 +12,13 @@ import java.util.List;
  * @Description: 字典类型
  */
 @Data
-public class SysDictTypeDto extends SysDictType {
+public class SysDictDto extends SysDictType {
 
     private static final long serialVersionUID = 1L;
     
     /**
      * 字典数据
      */
-    private List<SysDictData> dictDataList;
+    private List<SysDictData> dataList;
     
 }

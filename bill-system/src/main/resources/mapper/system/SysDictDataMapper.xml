@@ -1,12 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.beloved.system.mapper.SysDictDataMapper">
+
+    <sql id="BASE_COLUMNS">
+        ${alias}.dict_data_id,
+        ${alias}.dict_id,
+        ${alias}.dict_sort,
+        ${alias}.dict_label,
+        ${alias}.dict_value,
+        ${alias}.state,
+        ${alias}.create_by,
+        ${alias}.create_time,
+        ${alias}.update_by,
+        ${alias}.update_time,
+        ${alias}.remark
+    </sql>
     
     <select id="queryListByDictId" resultType="sysDictData">
-        select * 
-        from sys_dict_data
-        where state = 1 
-        and dict_id = #{dictId}
-        order by dict_sort
+        select <include refid="BASE_COLUMNS"><property name="alias" value="dd"/></include>
+        from sys_dict_data dd
+        where dd.state = 1
+        and dd.dict_id = #{dictId}
+        order by dd.dict_sort
     </select>
 </mapper>

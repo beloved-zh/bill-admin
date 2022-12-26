@@ -5,7 +5,7 @@
     <sql id="BASE_COLUMNS">
         ${alias}.role_id,
         ${alias}.role_name,
-        ${alias}.role_sort,
+        ${alias}.role_code,
         ${alias}.state,
         ${alias}.remark,
         ${alias}.create_by,
@@ -17,6 +17,7 @@
     <sql id="SEARCH">
         <if test="roleId != null">${alias}.role_id = #{roleId}</if>
         <if test="roleName != null and roleName != ''">${alias}.role_name = #{roleName}</if>
+        <if test="roleCode != null and roleCode != ''">${alias}.role_code = #{roleCode}</if>
         <if test="state != null">${alias}.state = #{state}</if>
         <if test="createBy != null and createBy != ''">${alias}.create_by = #{createBy}</if>
         <if test="createTime != null and createTime != ''">${alias}.create_time = #{createTime}</if>
@@ -31,6 +32,31 @@
         <where>
             <include refid="SEARCH"><property name="alias" value="r"/></include>
         </where>
-        order by r.role_sort
+        order by r.create_time
     </select>
+
+    <insert id="saveRole" parameterType="sysRole" keyProperty="roleId" keyColumn="role_id" useGeneratedKeys="true" >
+        insert into sys_role(
+            role_name,role_code,state,remark,create_by,create_time,update_by,update_time
+        ) values (
+            #{roleName},#{roleCode},#{state},#{remark},#{createBy},#{createTime},#{updateBy},#{updateTime}
+        )
+    </insert>
+
+    <update id="editRole" parameterType="sysRole">
+        update sys_role
+        <set>
+            <if test="roleName != null and roleName != ''">role_name = #{roleName},</if>
+            <if test="roleCode != null and roleCode != ''">role_code = #{roleCode},</if>
+            <if test="state != null">state = #{state},</if>
+            <if test="remark != null and remark != ''">remark = #{remark},</if>
+            update_by = #{updateBy},
+            update_time = #{updateTime}
+        </set>
+        where role_id = #{roleId}
+    </update>
+
+    <delete id="removeByRoleId" parameterType="long">
+        delete from sys_role where role_id = #{roleId}
+    </delete>
 </mapper>

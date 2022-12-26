@@ -1,20 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.beloved.system.mapper.SysDictTypeMapper">
-    
-    <select id="querySysDictTypeByType" resultType="sysDictType">
-        select * from sys_dict_type
-        where state = 1 and dict_type = #{dictType}
-    </select>
 
-    <resultMap id="sysDictTypeDto" type="sysDictTypeDto">
-        <collection property="dictDataList" ofType="sysDictData"
+    <resultMap id="sysDictTypeDto" type="sysDictDto">
+        <collection property="dataList" ofType="sysDictData"
                     select="com.beloved.system.mapper.SysDictDataMapper.queryListByDictId"
                     column="{dictId = dict_id}"/>
     </resultMap>
-    <select id="querySysDictTypeDataByType" resultMap="sysDictTypeDto">
-        select * from sys_dict_type
-        where state = 1 and dict_type = #{dictType}
+
+    <sql id="BASE_COLUMNS">
+        ${alias}.dict_id,
+        ${alias}.dict_name,
+        ${alias}.dict_type,
+        ${alias}.state,
+        ${alias}.create_by,
+        ${alias}.create_time,
+        ${alias}.update_by,
+        ${alias}.update_time,
+        ${alias}.remark
+    </sql>
+
+    <sql id="SEARCH">
+        <if test="dictId != null">${alias}.dict_id = #{dictId}</if>
+        <if test="dictName != null and dictName != ''">${alias}.dict_name = #{dictName}</if>
+        <if test="dictType != null and dictType != ''">${alias}.dict_type = #{dictType}</if>
+        <if test="state != null">${alias}.state = #{state}</if>
+        <if test="createBy != null and createBy != ''">${alias}.create_by = #{createBy}</if>
+        <if test="createTime != null and createTime != ''">${alias}.create_time = #{createTime}</if>
+        <if test="updateBy != null and updateBy != ''">${alias}.update_by = #{updateBy}</if>
+        <if test="updateTime != null and updateTime != ''">${alias}.update_time = #{updateTime}</if>
+        <if test="remark != null and remark != ''">${alias}.remark = #{remark}</if>
+    </sql>
+
+    <select id="queryList" resultType="sysDictType">
+        select <include refid="BASE_COLUMNS"><property name="alias" value="dt"/></include>
+        from sys_dict_type dt
+        <where>
+            <include refid="SEARCH"><property name="alias" value="dt"/></include>
+        </where>
+    </select>
+    
+    <select id="queryDictDtoList" resultMap="sysDictTypeDto">
+        select <include refid="BASE_COLUMNS"><property name="alias" value="dt"/></include>
+        from sys_dict_type dt
+        <where>
+            <include refid="SEARCH"><property name="alias" value="dt"/></include>
+        </where>
     </select>
     
 </mapper>

@@ -3,6 +3,7 @@ package com.beloved.common.converter;
 import com.beloved.common.enums.BooleanEnum;
 import com.beloved.common.enums.MenuTypeEnum;
 import com.beloved.common.enums.StateEnum;
+import com.beloved.common.model.dto.system.RoleDto;
 import com.beloved.common.model.entity.system.SysRole;
 import com.beloved.common.model.request.system.RoleRequest;
 import com.beloved.common.service.BaseEnum;
@@ -29,4 +30,6 @@ public interface RoleConverter {
         @Mapping(target = "state", expression = "java(BaseEnum.getEnumByValue(request.getState(), StateEnum.class))"),
     })
     SysRole requestToRole(RoleRequest request);
+
+    RoleDto requestToDto(RoleRequest request);
 }

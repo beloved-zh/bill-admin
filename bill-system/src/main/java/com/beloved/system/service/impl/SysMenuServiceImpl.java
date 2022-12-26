@@ -81,7 +81,7 @@ public class SysMenuServiceImpl implements SysMenuService {
     }
 
     @Override
-    public Long saveMenu(SysMenu menu) {
+    public long saveMenu(SysMenu menu) {
         
         if (menu.getParentId() == 0 && Objects.equals(menu.getMenuType(), MenuTypeEnum.BUTTON)) {
             throw new ServiceException("主菜单不能添加按钮");    
@@ -106,7 +106,7 @@ public class SysMenuServiceImpl implements SysMenuService {
     }
 
     @Override
-    public Long editMenu(SysMenu menu) {
+    public long editMenu(SysMenu menu) {
         
         menuMapper.editMenu(menu);
 

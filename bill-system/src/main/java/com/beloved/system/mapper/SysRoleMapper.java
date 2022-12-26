@@ -17,5 +17,10 @@ import java.util.List;
 public interface SysRoleMapper {
 
     List<SysRole> queryList(SysRole role);
-    
+
+    int saveRole(SysRole role);
+
+    int editRole(SysRole role);
+
+    void removeByRoleId(long roleId);
 }
